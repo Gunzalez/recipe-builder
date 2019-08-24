@@ -1,3 +1,5 @@
+@import 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css';
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -10,4 +12,38 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.row {
+  border: 2px solid #cccccc;
+  margin: 10px 0;
+}
+
+form {
+  max-width: 90%;
+  width: 600px;
+  margin: 20px auto;
+}
+
+button {
+  outline: none !important;
+}
+
+fieldset {
+  border: 1px solid #cccccc;
+  padding: 20px 20px 5px 20px;
+}
+
+.ingredient-row {
+  position: relative;
+}
+
+.ingredient-row input {
+  padding-right: 50px;
+}
+
+.ingredient-row button {
+  position: absolute;
+  right: 0;
+  top: 0;
 }
