@@ -1,20 +1,22 @@
 import React from 'react';
 
-const ingredient = ({ ingredient, changeIngredient, removeIngredient }) => {
+const ingredient = ({ dataId, ingredient, removeIngredient }) => {
     return (
         <div className='form-group'>
             <div className='ingredient-row'>
 
                 <input type='text'
-                    className='form-control'
-                    value={ingredient}
-                    placeholder={'New ingredient'}
-                    onChange={changeIngredient} />
+                    className='ingredient form-control'
+                    name={`ingredient${dataId}`}
+                    id={`ingredient${dataId}`}
+                    defaultValue={ingredient}
+                    data-id={dataId} />
 
                 <button className='btn btn-default'
                     onClick={removeIngredient}>
                     <i className="material-icons">clear</i>
                 </button>
+
             </div>
         </div>
     );

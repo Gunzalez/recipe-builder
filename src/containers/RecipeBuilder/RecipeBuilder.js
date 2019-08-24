@@ -6,33 +6,38 @@ import Ingredient from '../../components/Ingredient/Ingredient';
 
 class RecipeBuilder extends Component {
     state = { 
-        name: '',
-        ingredients: [
-            'Eggs'
-        ],
+        name: 'Jesse',
+        ingredients: ['Eggs', 'Milk', 'Sugar'],
         additionalContent: []
     }
 
-    changeNameHandler = (event) => {
-        const name = event.target.value
-        this.setState({ name })
-    }
-
     addIngredient = () => {
-        this.setState({ ingredients: ['', ...this.state.ingredients] })
+        // this.setState({ ingredients: ['', ...this.state.ingredients] }, () => { console.log(this.state) });
+        this.setState((prevState)=>({
+            ingredients : ['', ...prevState.ingredients]
+        }));
     }
 
-    changeIngredientHandler = (e, idx) => {
-        const value = e.target.value;
-        const ingredients = [...this.state.ingredients];
-        ingredients[idx] = value;
-        this.setState({ ingredients });
+    formChangeHandler = (e) => {
+        const elmClassName = e.target.className.split(' ')[0];
+        switch(elmClassName){
+            case 'ingredient':
+                const ingredients = [...this.state.ingredients];
+                ingredients[e.target.dataset.id] = e.target.value;
+                this.setState({ ingredients }, ()=> { console.log(this.state) });
+                break;                
+            default:
+                this.setState({ [elmClassName]: e.target.value }, () => { console.log(this.state) });
+                break;
+        }
     }
 
     removeIngredientHandler = (idx) => {
-        const ingredients = [...this.state.ingredients];
-        ingredients.splice(idx, 1);
-        this.setState({ ingredients });
+        const newIngredients = [...this.state.ingredients];
+        console.log(newIngredients);
+        console.log(newIngredients[idx]);
+        newIngredients.splice(idx, 1);
+        this.setState({ingredients: newIngredients }, () => { console.log(this.state) });
     }
 
     formSubmitHandler = (e) => {
@@ -42,44 +47,49 @@ class RecipeBuilder extends Component {
     render() {
 
         const { state: { 
-                name, 
-                ingredients, 
-                additionalContent 
+                name, ingredients
             }, 
             formSubmitHandler,
-            changeNameHandler,
+            formChangeHandler,
             removeIngredientHandler,
-            changeIngredientHandler,
-            addIngredient } = this;
+            addIngredient 
+        } = this;
+
+        let ingredientsList = <p>Please add some ingredients</p>;
+        if(ingredients.length){
+            ingredientsList = ingredients.map((ingredient, idx) => {
+                return <Ingredient
+                    key={idx}
+                    dataId={idx}
+                    ingredient={ingredient}
+                    removeIngredient={()=> { removeIngredientHandler(idx)} } />
+            })
+        }
 
         return (
             <Aux>
                 <ReciperReader recipe={this.state} />
 
-                <form onSubmit={formSubmitHandler}>
+                <form onSubmit={formSubmitHandler} onChange={formChangeHandler}>
+
                     <div className='form-group'>
 
                         <label htmlFor='name'>Recipe name</label>
 
                         <input type='text'
-                            className='form-control' 
-                            value={name} 
-                            onChange={changeNameHandler} />
+                            className='name form-control' 
+                            defaultValue={name} />
                         </div>
 
-                        <button className='btn btn-default'
-                            onClick={addIngredient}>
-                                <i className="material-icons">add</i>
-                        </button>
+                        <div className='text-right'>
+                            <button className='btn btn-default'
+                                onClick={addIngredient}>
+                                    <i className="material-icons">add</i>
+                            </button>
+                        </div>
 
                         <fieldset>
-                            { ingredients.map((ingredient, idx) => {
-                                return <Ingredient
-                                    key={idx}
-                                    ingredient={ingredient}
-                                    removeIngredient={()=> { removeIngredientHandler(idx)}}
-                                    changeIngredient={(e)=> { changeIngredientHandler(e, idx)}} />
-                            })}
+                            { ingredientsList }
                         </fieldset>
                 </form>
             </Aux>
