@@ -12,10 +12,7 @@ class RecipeBuilder extends Component {
     }
 
     addIngredient = () => {
-        // this.setState({ ingredients: ['', ...this.state.ingredients] }, () => { console.log(this.state) });
-        this.setState((prevState)=>({
-            ingredients : ['', ...prevState.ingredients]
-        }));
+        this.setState({ ingredients: ['', ...this.state.ingredients] }, () => { console.log(this.state) });
     }
 
     formChangeHandler = (e) => {
@@ -55,7 +52,7 @@ class RecipeBuilder extends Component {
             addIngredient 
         } = this;
 
-        let ingredientsList = <p>Please add some ingredients</p>;
+        let ingredientsList = <p>Please add some ingrediants</p>;
         if(ingredients.length){
             ingredientsList = ingredients.map((ingredient, idx) => {
                 return <Ingredient
