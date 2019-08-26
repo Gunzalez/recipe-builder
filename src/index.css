@@ -30,12 +30,14 @@ button {
 }
 
 fieldset {
-  border: 1px solid #cccccc;
+  background: whitesmoke;
   padding: 20px 20px 5px 20px;
   margin-bottom: 20px;
+  border-radius: 6px;
 }
 
-.ingredient-row {
+.ingredient-row,
+.content-row {
   position: relative;
 }
 
@@ -47,4 +49,26 @@ fieldset {
   position: absolute;
   right: 0;
   top: 0;
+}
+
+.content-row button {
+  position: absolute;
+  right: 0;
+  top: -10px;
+}
+
+.content-row button {
+  position: absolute;
+  right: 0;
+  top: -10px;
+}
+
+.content-row input {
+  margin-bottom: 10px;
+}
+
+.content-row textarea {
+  height: 160px;
+  resize: none;
+  margin-bottom: 20px;
 }
