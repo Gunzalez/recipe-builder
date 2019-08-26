@@ -7,34 +7,45 @@ import Ingredient from '../../components/Ingredient/Ingredient';
 class RecipeBuilder extends Component {
     state = { 
         name: 'Jesse',
-        ingredients: ['Eggs', 'Milk', 'Sugar'],
+        ingredients: [],
         additionalContent: []
     }
 
     addIngredient = () => {
-        this.setState({ ingredients: ['', ...this.state.ingredients] }, () => { console.log(this.state) });
+        this.setState({ ingredients: [
+            { 
+                key: Date.now(), 
+                text: '' 
+            }, 
+            ...this.state.ingredients] 
+        });
     }
 
     formChangeHandler = (e) => {
         const elmClassName = e.target.className.split(' ')[0];
         switch(elmClassName){
             case 'ingredient':
-                const ingredients = [...this.state.ingredients];
-                ingredients[e.target.dataset.id] = e.target.value;
+                const ingredients = this.state.ingredients.map(ingredient => {
+                    if(ingredient.key == e.target.dataset.id){
+                        ingredient.text = e.target.value;
+                        return ingredient
+                    } else {
+                        return ingredient;
+                    }
+                })
                 this.setState({ ingredients }, ()=> { console.log(this.state) });
                 break;                
             default:
-                this.setState({ [elmClassName]: e.target.value }, () => { console.log(this.state) });
+                this.setState({ [elmClassName]: e.target.value });
                 break;
         }
     }
 
-    removeIngredientHandler = (idx) => {
-        const newIngredients = [...this.state.ingredients];
-        console.log(newIngredients);
-        console.log(newIngredients[idx]);
-        newIngredients.splice(idx, 1);
-        this.setState({ingredients: newIngredients }, () => { console.log(this.state) });
+    removeIngredientHandler = (key) => {
+        const ingredients = [...this.state.ingredients];
+        const index = this.state.ingredients.findIndex(ingredient => ingredient.key === key);
+        ingredients.splice(index, 1);
+        this.setState({ ingredients });
     }
 
     formSubmitHandler = (e) => {
@@ -54,12 +65,13 @@ class RecipeBuilder extends Component {
 
         let ingredientsList = <p>Please add some ingrediants</p>;
         if(ingredients.length){
-            ingredientsList = ingredients.map((ingredient, idx) => {
+            ingredientsList = ingredients.map((ingredient) => {
+                const  { key, text } = ingredient;
                 return <Ingredient
-                    key={idx}
-                    dataId={idx}
-                    ingredient={ingredient}
-                    removeIngredient={()=> { removeIngredientHandler(idx)} } />
+                    key={key}
+                    dataId={key}
+                    ingredient={text}
+                    removeIngredient={()=> { removeIngredientHandler(key)} } />
             })
         }
 

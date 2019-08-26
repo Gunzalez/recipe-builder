@@ -7,8 +7,8 @@ const ingredient = ({ dataId, ingredient, removeIngredient }) => {
 
                 <input type='text'
                     className='ingredient form-control'
-                    name={`ingredient${dataId}`}
-                    id={`ingredient${dataId}`}
+                    name={dataId}
+                    id={dataId}
                     defaultValue={ingredient}
                     data-id={dataId} />
 
