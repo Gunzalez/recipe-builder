@@ -20,7 +20,6 @@ const additionalContent = ({ dataKey, title, body, removeContent }) => {
                 <label htmlFor={bodyId}>Content</label>
                 <textarea data-name='body'
                     className='form-control'
-                    data-name='body'
                     defaultValue={body}
                     id={bodyId}
                     data-key={dataKey}></textarea>
