@@ -19,10 +19,11 @@ code {
   margin: 10px 0;
 }
 
-form {
+form, .reader {
   max-width: 90%;
-  width: 600px;
+  width: 500px;
   margin: 20px auto;
+  padding-top: 20px;
 }
 
 button {
@@ -71,4 +72,8 @@ fieldset {
   height: 160px;
   resize: none;
   margin-bottom: 20px;
+}
+
+.demo {
+  display: flex;
 }
