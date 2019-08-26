@@ -95,6 +95,7 @@ class RecipeBuilder extends Component {
                     const index = this.state.additionalContent.findIndex(content => content.key === key);
                     additionalContent.splice(index, 1);
                     this.setState({ additionalContent });
+                    break;
                 }
             default:
                 console.log('Oops');
