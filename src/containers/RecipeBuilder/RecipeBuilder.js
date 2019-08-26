@@ -6,14 +6,11 @@ import AdditionalContent from '../../components/AdditionalContent/AdditionalCont
 
 
 class RecipeBuilder extends Component {
+
     state = { 
         name: '',
         ingredients: [],
-        additionalContent: [{
-            key: '',
-            title: '',
-            body: ''
-        }]
+        additionalContent: []
     }
 
     addIngredient = () => {
@@ -23,6 +20,17 @@ class RecipeBuilder extends Component {
                 text: '' 
             }, 
             ...this.state.ingredients] 
+        });
+    }
+
+    addAdditionalContentHandler = () => {
+        this.setState({ additionalContent: [
+            ...this.state.additionalContent,
+            { 
+                key: Date.now(), 
+                title: '',
+                body: ''
+            }] 
         });
     }
 
@@ -39,7 +47,29 @@ class RecipeBuilder extends Component {
                     }
                 })
                 this.setState({ ingredients });
-                break;                
+                break; 
+            case 'title':
+                const additionalContent = this.state.additionalContent.map(content => {
+                    if(content.key == e.target.dataset.key){
+                        content.text = e.target.value;
+                        return content
+                    } else {
+                        return content;
+                    }
+                })
+                this.setState({ additionalContent });
+                break;    
+            case 'body':
+                const updatedAdditionalContent = this.state.additionalContent.map(content => {
+                    if(content.key == e.target.dataset.key){
+                        content.body = e.target.value;
+                        return content
+                    } else {
+                        return content;
+                    }
+                })
+                this.setState({ additionalContent: updatedAdditionalContent });
+                break;              
             default:
                 this.setState({ [identifier]: e.target.value });
                 break;
@@ -76,7 +106,7 @@ class RecipeBuilder extends Component {
             addAdditionalContentHandler 
         } = this;
 
-        let ingredientsList = <p>Please add some ingrediants</p>;
+        let ingredientsList = <p>Recipe needs at least one ingredient.</p>;
         if(ingredients.length){
             ingredientsList = ingredients.map(ingredient => {
                 const  { key, text } = ingredient;
@@ -84,20 +114,23 @@ class RecipeBuilder extends Component {
                     key={key}
                     dataKey={key}
                     ingredient={text}
-                    removeIngredient={ () => { removeItemHandler(key, 'ingredient' )} } />
+                    removeIngredient={ () => { removeItemHandler(key,'ingredient')} } />
             })
         }
 
-        const additionalContentList = additionalContent.map( content => {
-            const  { key, title, body } = content;
-            return <AdditionalContent
-                key={key}
-                dataKey={key}
-                title={title}
-                body={body}
-                removeContent={ () => { removeItemHandler(key, 'content')} } />
-        })
-
+        let additionalContentList = <p>Additonal content is optional</p>;
+        if(additionalContent.length){
+            additionalContentList = additionalContent.map( content => {
+                const  { key, title, body } = content;
+                return <AdditionalContent
+                    key={key}
+                    dataKey={key}
+                    title={title}
+                    body={body}
+                    removeContent={ () => { removeItemHandler(key,'content')} } />
+            })
+        }
+        
         return (
             <Aux>
                 <ReciperReader recipe={this.state} />
