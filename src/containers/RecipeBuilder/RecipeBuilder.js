@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Aux from '../hoc/Aux/Aux'
-import ReciperReader from '../../components/RecipeReader/ReciperReader';
+import ReciperReader from '../../components/RecipeReader/RecipeReader';
 import Ingredient from '../../components/Ingredient/Ingredient';
 import AdditionalContent from '../../components/AdditionalContent/AdditionalContent';
 
@@ -34,7 +33,8 @@ class RecipeBuilder extends Component {
     }
 
     canBeSubmit = () => {
-        return !this.state.ingredients.length
+        const { ingredients, name } = this.state
+        return !ingredients.length || !name.length
     }
 
     formChangeHandler = (e) => {
@@ -42,18 +42,18 @@ class RecipeBuilder extends Component {
         switch(identifier){
             case 'ingredient':
                 const ingredients = this.state.ingredients.map(ingredient => {
-                    if(ingredient.key == e.target.dataset.key){
+                    if(ingredient.key.toString() === e.target.dataset.key.toString()){
                         ingredient.text = e.target.value;
                         return ingredient
                     } else {
                         return ingredient;
                     }
                 })
-                this.setState({ ingredients });
+                this.setState({ ingredients }, ()=>{ console.log(this.state)});
                 break; 
             case 'title':
                 const additionalContent = this.state.additionalContent.map(content => {
-                    if(content.key == e.target.dataset.key){
+                    if(content.key.toString() === e.target.dataset.key.toString()){
                         content.text = e.target.value;
                         return content
                     } else {
@@ -64,7 +64,7 @@ class RecipeBuilder extends Component {
                 break;    
             case 'body':
                 const updatedAdditionalContent = this.state.additionalContent.map(content => {
-                    if(content.key == e.target.dataset.key){
+                    if(content.key.toString() === e.target.dataset.key.toString()){
                         content.body = e.target.value;
                         return content
                     } else {
@@ -107,6 +107,10 @@ class RecipeBuilder extends Component {
         e.preventDefault();
     }
 
+    saveRecipe = () => {
+        console.log(this.state);
+    }
+
     render() {
 
         const { state: { 
@@ -117,7 +121,8 @@ class RecipeBuilder extends Component {
             removeItemHandler,
             addIngredient,
             addAdditionalContentHandler,
-            canBeSubmit 
+            canBeSubmit,
+            saveRecipe 
         } = this;
 
         let ingredientsList = <p>Recipe needs at least one ingredient.</p>;
@@ -146,14 +151,13 @@ class RecipeBuilder extends Component {
         }
         
         return (
-            <Aux>
+            <div className={'demo'}>
                 <ReciperReader recipe={this.state} />
-
                 <form onSubmit={formSubmitHandler} onChange={formChangeHandler}>
 
                     <div className='form-group'>
 
-                        <label htmlFor='name'>Recipe name</label>
+                        <label htmlFor='name'>Recipe title</label>
 
                         <input type='text'
                             className='form-control'
@@ -184,10 +188,11 @@ class RecipeBuilder extends Component {
                         </fieldset>
 
                         <button className={'btn btn-success'}
+                            onClick={ saveRecipe }
                             disabled={ canBeSubmit() }>Save recipe</button>
 
                 </form>
-            </Aux>
+            </div>
         );
     }
 }
