@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ingredient = ({ dataId, ingredient, removeIngredient }) => {
+const ingredient = ({ dataKey, ingredient, removeIngredient }) => {
     return (
         <div className='form-group'>
             <div className='ingredient-row'>
@@ -9,7 +9,7 @@ const ingredient = ({ dataId, ingredient, removeIngredient }) => {
                     className='form-control'
                     data-name='ingredient'
                     defaultValue={ingredient}
-                    data-id={dataId} />
+                    data-key={dataKey} />
 
                 <button className='btn btn-default'
                     onClick={removeIngredient}>
