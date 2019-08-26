@@ -32,6 +32,7 @@ button {
 fieldset {
   border: 1px solid #cccccc;
   padding: 20px 20px 5px 20px;
+  margin-bottom: 20px;
 }
 
 .ingredient-row {
