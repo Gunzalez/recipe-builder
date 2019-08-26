@@ -49,7 +49,7 @@ class RecipeBuilder extends Component {
                         return ingredient;
                     }
                 })
-                this.setState({ ingredients }, ()=>{ console.log(this.state)});
+                this.setState({ ingredients });
                 break; 
             case 'title':
                 const additionalContent = this.state.additionalContent.map(content => {
