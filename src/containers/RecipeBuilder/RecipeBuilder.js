@@ -6,7 +6,7 @@ import Ingredient from '../../components/Ingredient/Ingredient';
 
 class RecipeBuilder extends Component {
     state = { 
-        name: 'Jesse',
+        name: '',
         ingredients: [],
         additionalContent: []
     }
@@ -22,8 +22,8 @@ class RecipeBuilder extends Component {
     }
 
     formChangeHandler = (e) => {
-        const elmClassName = e.target.className.split(' ')[0];
-        switch(elmClassName){
+        const identifier = e.target.dataset.name;
+        switch(identifier){
             case 'ingredient':
                 const ingredients = this.state.ingredients.map(ingredient => {
                     if(ingredient.key == e.target.dataset.id){
@@ -33,10 +33,10 @@ class RecipeBuilder extends Component {
                         return ingredient;
                     }
                 })
-                this.setState({ ingredients }, ()=> { console.log(this.state) });
+                this.setState({ ingredients });
                 break;                
             default:
-                this.setState({ [elmClassName]: e.target.value });
+                this.setState({ [identifier]: e.target.value });
                 break;
         }
     }
@@ -71,7 +71,7 @@ class RecipeBuilder extends Component {
                     key={key}
                     dataId={key}
                     ingredient={text}
-                    removeIngredient={()=> { removeIngredientHandler(key)} } />
+                    removeIngredient={ () => { removeIngredientHandler(key)} } />
             })
         }
 
@@ -86,7 +86,8 @@ class RecipeBuilder extends Component {
                         <label htmlFor='name'>Recipe name</label>
 
                         <input type='text'
-                            className='name form-control' 
+                            className='form-control'
+                            data-name='name' 
                             defaultValue={name} />
                         </div>
 

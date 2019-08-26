@@ -6,9 +6,8 @@ const ingredient = ({ dataId, ingredient, removeIngredient }) => {
             <div className='ingredient-row'>
 
                 <input type='text'
-                    className='ingredient form-control'
-                    name={dataId}
-                    id={dataId}
+                    className='form-control'
+                    data-name='ingredient'
                     defaultValue={ingredient}
                     data-id={dataId} />
 
