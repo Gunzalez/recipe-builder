@@ -4,7 +4,6 @@ import ReciperReader from '../../components/RecipeReader/ReciperReader';
 import Ingredient from '../../components/Ingredient/Ingredient';
 import AdditionalContent from '../../components/AdditionalContent/AdditionalContent';
 
-
 class RecipeBuilder extends Component {
 
     state = { 
@@ -32,6 +31,10 @@ class RecipeBuilder extends Component {
                 body: ''
             }] 
         });
+    }
+
+    canBeSubmit = () => {
+        return !this.state.ingredients.length
     }
 
     formChangeHandler = (e) => {
@@ -77,16 +80,25 @@ class RecipeBuilder extends Component {
     }
 
     removeItemHandler = (key, itemType) => {
-        if(itemType === 'ingredient'){
-            const ingredients = [...this.state.ingredients];
-            const index = this.state.ingredients.findIndex(ingredient => ingredient.key === key);
-            ingredients.splice(index, 1);
-            this.setState({ ingredients });
-        } else if (itemType === 'content') {
-            const additionalContent = [...this.state.additionalContent];
-            const index = this.state.additionalContent.findIndex(content => content.key === key);
-            additionalContent.splice(index, 1);
-            this.setState({ additionalContent });
+        switch(itemType){
+            case 'ingredient':
+                {
+                    const ingredients = [...this.state.ingredients];
+                    const index = this.state.ingredients.findIndex(ingredient => ingredient.key === key);
+                    ingredients.splice(index, 1);
+                    this.setState({ ingredients });
+                    break;
+                }
+            case 'content':
+                {
+                    const additionalContent = [...this.state.additionalContent];
+                    const index = this.state.additionalContent.findIndex(content => content.key === key);
+                    additionalContent.splice(index, 1);
+                    this.setState({ additionalContent });
+                }
+            default:
+                console.log('Oops');
+                break;
         }
     }
 
@@ -103,7 +115,8 @@ class RecipeBuilder extends Component {
             formChangeHandler,
             removeItemHandler,
             addIngredient,
-            addAdditionalContentHandler 
+            addAdditionalContentHandler,
+            canBeSubmit 
         } = this;
 
         let ingredientsList = <p>Recipe needs at least one ingredient.</p>;
@@ -168,6 +181,9 @@ class RecipeBuilder extends Component {
                         <fieldset>
                             { additionalContentList }
                         </fieldset>
+
+                        <button className={'btn btn-success'}
+                            disabled={ canBeSubmit() }>Save recipe</button>
 
                 </form>
             </Aux>
