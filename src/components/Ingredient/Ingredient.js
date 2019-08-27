@@ -13,7 +13,7 @@ const ingredient = ({ dataKey, ingredient, removeIngredient }) => {
 
                 <button className='btn btn-default'
                     onClick={removeIngredient}>
-                    <i className="material-icons">clear</i>
+                        <i className="material-icons">clear</i>
                 </button>
 
             </div>

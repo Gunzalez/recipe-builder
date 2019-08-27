@@ -6,15 +6,20 @@ const reciperReader = (props) => {
 
     return (
         <div className={'reader'}>
-            <p><strong>As displayed on Product page</strong></p>
+
+            <p>As displayed on Product page</p>
             <hr />
+
             <article className={'h-recipe'}>
+                
                 <h4 className='p-name'>{name}</h4>
+
                 <ul>
                     { ingredients.map((ingredient, idx) => {
                         return ingredient.text.length ? <li key={idx} className='p-ingredient'>{ingredient.text}</li> : null
                     })}
                 </ul>
+
                 { additionalContent.map((content, idx) => {
                     const { text, body } = content;
                     return (
@@ -25,7 +30,9 @@ const reciperReader = (props) => {
                         </div>
                     )
                 })}
+
             </article>
+
         </div>
     );
 }

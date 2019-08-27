@@ -26,7 +26,7 @@ const additionalContent = ({ dataKey, title, body, removeContent }) => {
 
                 <button className='btn btn-default'
                     onClick={removeContent}>
-                    <i className="material-icons">clear</i>
+                        <i className="material-icons">clear</i>
                 </button>
 
             </div>
