@@ -1,33 +1,21 @@
 import React, { Component } from 'react';
 import ReciperReader from '../../components/RecipeReader/RecipeReader';
 import Ingredient from '../../components/Ingredient/Ingredient';
-import AdditionalContent from '../../components/AdditionalContent/AdditionalContent';
 
 class RecipeBuilder extends Component {
 
     state = { 
         name: '',
-        ingredients: [],
-        additionalContent: []
+        ingredients: []
     }
 
     addIngredient = () => {
-        this.setState({ ingredients: [
+        console.log('Adds ingredient');
+        this.setState({ ingredients: [            
+            ...this.state.ingredients,
             { 
                 key: Date.now(), 
                 text: '' 
-            }, 
-            ...this.state.ingredients] 
-        });
-    }
-
-    addAdditionalContentHandler = () => {
-        this.setState({ additionalContent: [
-            ...this.state.additionalContent,
-            { 
-                key: Date.now(), 
-                title: '',
-                body: ''
             }] 
         });
     }
@@ -50,29 +38,7 @@ class RecipeBuilder extends Component {
                     }
                 })
                 this.setState({ ingredients });
-                break; 
-            case 'title':
-                const additionalContent = this.state.additionalContent.map(content => {
-                    if(content.key.toString() === e.target.dataset.key.toString()){
-                        content.text = e.target.value;
-                        return content
-                    } else {
-                        return content;
-                    }
-                })
-                this.setState({ additionalContent });
-                break;    
-            case 'body':
-                const updatedAdditionalContent = this.state.additionalContent.map(content => {
-                    if(content.key.toString() === e.target.dataset.key.toString()){
-                        content.body = e.target.value;
-                        return content
-                    } else {
-                        return content;
-                    }
-                })
-                this.setState({ additionalContent: updatedAdditionalContent });
-                break;              
+                break;             
             default:
                 this.setState({ [identifier]: e.target.value });
                 break;
@@ -80,6 +46,7 @@ class RecipeBuilder extends Component {
     }
 
     removeItemHandler = (key, itemType) => {
+        console.log(itemType);
         switch(itemType){
             case 'ingredient':
                 {
@@ -111,16 +78,39 @@ class RecipeBuilder extends Component {
         console.log(this.state);
     }
 
+    componentDidMount() {
+        if(!this.state.ingredients.length){
+            this.addIngredient();
+        }
+    };
+
+    keyDownHandler = (e) => {
+        var keynum;
+        if(window.event) { // IE                    
+            keynum = e.keyCode;
+        } else if(e.which){ // Netscape/Firefox/Opera                   
+            keynum = e.which;
+        }
+        if(keynum === 13){
+            this.addIngredient();
+        }      
+    }
+
+    inputPasteHandler = () => {
+        console.log('Deep');
+    }
+
     render() {
 
         const { state: { 
-                name, ingredients, additionalContent
+                name, ingredients
             }, 
             formSubmitHandler,
             formChangeHandler,
             removeItemHandler,
+            inputPasteHandler,
+            keyDownHandler,
             addIngredient,
-            addAdditionalContentHandler,
             canBeSubmit,
             saveRecipe 
         } = this;
@@ -133,20 +123,10 @@ class RecipeBuilder extends Component {
                     key={key}
                     dataKey={key}
                     ingredient={text}
-                    removeIngredient={ () => { removeItemHandler(key,'ingredient')} } />
-            })
-        }
-
-        let additionalContentList = <p>Additonal content is optional</p>;
-        if(additionalContent.length){
-            additionalContentList = additionalContent.map( content => {
-                const  { key, title, body } = content;
-                return <AdditionalContent
-                    key={key}
-                    dataKey={key}
-                    title={title}
-                    body={body}
-                    removeContent={ () => { removeItemHandler(key,'content')} } />
+                    inputPastedInto={ inputPasteHandler }
+                    inputKeyDowned={(e) => { keyDownHandler(e) }}
+                    removeIngredient={() => { removeItemHandler(key,'ingredient')}}
+                    />
             })
         }
         
@@ -165,29 +145,19 @@ class RecipeBuilder extends Component {
                             defaultValue={name} />
                         </div>
 
-                        <div className='text-right'>
-                            <button className='btn btn-default'
-                                onClick={addIngredient}>
-                                    <i className="material-icons">add</i>
-                            </button>
-                        </div>
-
+                        <p>Ingredients (at least one)</p>
                         <fieldset>
                             { ingredientsList }
                         </fieldset>
 
                         <div className='text-right'>
-                            <button className='btn btn-default'
-                                onClick={addAdditionalContentHandler}>
+                            <button type='button' className='btn btn-default'
+                                onClick={addIngredient}>
                                     <i className="material-icons">add</i>
                             </button>
                         </div>
 
-                        <fieldset>
-                            { additionalContentList }
-                        </fieldset>
-
-                        <button className={'btn btn-success'}
+                        <button type='submit' className={'btn btn-success'}
                             onClick={ saveRecipe }
                             disabled={ canBeSubmit() }>Save recipe</button>
 

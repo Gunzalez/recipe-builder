@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ingredient = ({ dataKey, ingredient, removeIngredient }) => {
+const ingredient = ({ dataKey, ingredient, removeIngredient, inputKeyDowned, inputPastedInto }) => {
     return (
         <div className='form-group'>
             <div className='ingredient-row'>
@@ -8,15 +8,19 @@ const ingredient = ({ dataKey, ingredient, removeIngredient }) => {
                 <input type='text'
                     className='form-control'
                     data-name='ingredient'
-                    defaultValue={ingredient}
-                    data-key={dataKey} />
+                    defaultValue={ ingredient } 
+                    onKeyDown={ inputKeyDowned }
+                    onPaste= { inputPastedInto }
+                    data-key={ dataKey }
+                    autoFocus />
 
-                <button className='btn btn-default'
+                <button type='button' className='btn btn-default'
                     onClick={removeIngredient}>
                         <i className="material-icons">clear</i>
                 </button>
 
             </div>
+
         </div>
     );
 }
