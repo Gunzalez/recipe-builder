@@ -9,15 +9,19 @@ class RecipeBuilder extends Component {
         ingredients: []
     }
 
-    addIngredient = () => {
-        console.log('Adds ingredient');
-        this.setState({ ingredients: [            
-            ...this.state.ingredients,
-            { 
-                key: Date.now(), 
-                text: '' 
-            }] 
-        });
+    addIngredient = (idx) => {
+        const freshIngredient = { 
+            key: Date.now(), 
+            text: '' 
+        }
+        if(typeof(idx) === 'number'){
+            const ingredients = [...this.state.ingredients];
+            ingredients.splice(idx + 1, 0, freshIngredient);
+            this.setState({ ingredients });
+        } else {
+            console.log('Empty');
+            this.setState({ ingredients: [ ...this.state.ingredients, freshIngredient ] });
+        }
     }
 
     canBeSubmit = () => {
@@ -92,7 +96,8 @@ class RecipeBuilder extends Component {
             keynum = e.which;
         }
         if(keynum === 13){
-            this.addIngredient();
+            const idx = this.state.ingredients.findIndex(ing => ing.key == e.target.dataset.key);
+            this.addIngredient(idx);
         }      
     }
 
