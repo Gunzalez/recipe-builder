@@ -52,16 +52,12 @@ fieldset {
   top: 0;
 }
 
-.content-row button {
-  position: absolute;
-  right: 0;
-  top: -10px;
-}
 
-.content-row button {
-  position: absolute;
+.content-row {
+  text-align: right;
+  /* position: absolute;
   right: 0;
-  top: -10px;
+  top: -10px; */
 }
 
 .content-row input {
@@ -69,11 +65,19 @@ fieldset {
 }
 
 .content-row textarea {
-  height: 160px;
+  height: 120px;
   resize: none;
   margin-bottom: 20px;
 }
 
 .demo {
   display: flex;
+}
+
+fieldset .form-group:nth-last-child(1) {
+  margin-bottom: 0;
+}
+
+.content {
+  padding: 10px 0 15px 0;
 }
