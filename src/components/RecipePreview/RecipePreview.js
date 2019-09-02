@@ -4,20 +4,10 @@ const reciperReader = (props) => {
 
     const { recipe: { name, ingredients, topContent, bottomContent }} = props;
 
-    let listOfIngredients = null;
-    const emptyIngredient = ingredients.length === 1 && ingredients[0].text.length === 0;
-    if(ingredients.length){
-            if(!emptyIngredient){
-            listOfIngredients =  (<ul>
-                    { ingredients.map((ingredient, idx) => {
-                        return ingredient.text.length ? <li key={idx} className='p-ingredient'>{ingredient.text}</li> : null
-                    })}
-                </ul>
-            )
-        }
-    }
+    const hasOneOrMoreIngredients = ingredients.reduce((list, ing)=> {
+        return list + ing.text
+    }, '').length > 0;
     
-
     return (
         <div className={'reader'}>
 
@@ -27,8 +17,14 @@ const reciperReader = (props) => {
             <article className={'h-recipe'}>
                 { name.length ? <h4 className='p-name'>{name}</h4> : null }
                 { topContent.length ? <p className='content'>{ topContent }</p> : null }
-                { !emptyIngredient ? <h5>INGREDIENTS</h5> : null }
-                { listOfIngredients }
+                { hasOneOrMoreIngredients && <p><strong>INGREDIENTS</strong></p> }
+                { hasOneOrMoreIngredients && 
+                        <ul>
+                            { ingredients.map((ingredient, idx) => {
+                                return ingredient.text.length ? <li key={idx} className='p-ingredient'>{ingredient.text}</li> : null
+                            })}
+                        </ul>
+                    }
                 { bottomContent.length ? <p className='content'>{ bottomContent }</p> : null }
             </article>
 

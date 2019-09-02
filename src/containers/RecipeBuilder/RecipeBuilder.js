@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReciperReader from '../../components/RecipeReader/RecipeReader';
+import ReciperReader from '../../components/RecipePreview/RecipePreview';
 import Ingredient from '../../components/Ingredient/Ingredient';
 import AdditionalContent from '../../components/AdditionalContent/AdditionalContent';
 
