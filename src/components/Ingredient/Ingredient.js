@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ingredient = ({ dataKey, ingredient, removeIngredient, inputKeyDowned, inputPastedInto }) => {
+const ingredient = ({ dataKey, ingredient, removeIngredient, inputKeyDowned }) => {
     return (
         <div className='form-group'>
             <div className='ingredient-row'>
@@ -10,7 +10,6 @@ const ingredient = ({ dataKey, ingredient, removeIngredient, inputKeyDowned, inp
                     data-name='ingredient'
                     defaultValue={ ingredient } 
                     onKeyDown={ inputKeyDowned }
-                    onPaste= { inputPastedInto }
                     data-key={ dataKey }
                     autoFocus />
 

@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import ReciperReader from '../../components/RecipeReader/RecipeReader';
 import Ingredient from '../../components/Ingredient/Ingredient';
+import AdditionalContent from '../../components/AdditionalContent/AdditionalContent';
 
 class RecipeBuilder extends Component {
 
     state = { 
         name: '',
-        ingredients: []
+        topContent: '',
+        ingredients: [],
+        bottomContent: ''
     }
 
     addIngredient = (idx) => {
@@ -14,19 +17,18 @@ class RecipeBuilder extends Component {
             key: Date.now(), 
             text: '' 
         }
-        if(typeof(idx) === 'number'){
+        if(typeof(idx) === 'number' && idx > -1){
             const ingredients = [...this.state.ingredients];
             ingredients.splice(idx + 1, 0, freshIngredient);
             this.setState({ ingredients });
         } else {
-            console.log('Empty');
             this.setState({ ingredients: [ ...this.state.ingredients, freshIngredient ] });
         }
     }
 
     canBeSubmit = () => {
         const { ingredients, name } = this.state
-        return !ingredients.length || !name.length
+        return !ingredients.length || !name.length // TODO; reduce ingredients
     }
 
     formChangeHandler = (e) => {
@@ -34,7 +36,7 @@ class RecipeBuilder extends Component {
         switch(identifier){
             case 'ingredient':
                 const ingredients = this.state.ingredients.map(ingredient => {
-                    if(ingredient.key.toString() === e.target.dataset.key.toString()){
+                    if(ingredient.key.toString() === e.target.dataset.key){
                         ingredient.text = e.target.value;
                         return ingredient
                     } else {
@@ -50,7 +52,6 @@ class RecipeBuilder extends Component {
     }
 
     removeItemHandler = (key, itemType) => {
-        console.log(itemType);
         switch(itemType){
             case 'ingredient':
                 {
@@ -96,24 +97,23 @@ class RecipeBuilder extends Component {
             keynum = e.which;
         }
         if(keynum === 13){
-            const idx = this.state.ingredients.findIndex(ing => ing.key == e.target.dataset.key);
+            const idx = this.state.ingredients.findIndex(ing => ing.key.toString() === e.target.dataset.key);
             this.addIngredient(idx);
         }      
     }
 
-    inputPasteHandler = () => {
-        console.log('Deep');
-    }
 
     render() {
 
         const { state: { 
-                name, ingredients
+                name, 
+                topContent, 
+                ingredients,
+                bottomContent
             }, 
             formSubmitHandler,
             formChangeHandler,
             removeItemHandler,
-            inputPasteHandler,
             keyDownHandler,
             addIngredient,
             canBeSubmit,
@@ -128,8 +128,7 @@ class RecipeBuilder extends Component {
                     key={key}
                     dataKey={key}
                     ingredient={text}
-                    inputPastedInto={ inputPasteHandler }
-                    inputKeyDowned={(e) => { keyDownHandler(e) }}
+                    inputKeyDowned={ keyDownHandler }
                     removeIngredient={() => { removeItemHandler(key,'ingredient')}}
                     />
             })
@@ -150,17 +149,24 @@ class RecipeBuilder extends Component {
                             defaultValue={name} />
                         </div>
 
-                        <p>Ingredients (at least one)</p>
                         <fieldset>
-                            { ingredientsList }
+                            <AdditionalContent position={'topContent'} content={topContent}  />
                         </fieldset>
 
-                        <div className='text-right'>
-                            <button type='button' className='btn btn-default'
-                                onClick={addIngredient}>
-                                    <i className="material-icons">add</i>
-                            </button>
-                        </div>
+                        <fieldset>
+                            { ingredientsList }
+
+                            <div className='text-right'>
+                                <button type='button' className='btn btn-default'
+                                    onClick={addIngredient}>
+                                        <i className="material-icons">add</i>
+                                </button>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <AdditionalContent position={'bottomContent'} content={bottomContent}  />
+                        </fieldset>
 
                         <button type='submit' className={'btn btn-success'}
                             onClick={ saveRecipe }
