@@ -52,6 +52,9 @@ fieldset {
   top: 0;
 }
 
+h4 {
+  margin-bottom: 20px;
+}
 
 .content-row {
   text-align: right;

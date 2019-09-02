@@ -4,8 +4,8 @@ const reciperReader = (props) => {
 
     const { recipe: { name, ingredients, topContent, bottomContent }} = props;
 
-    const hasOneOrMoreIngredients = ingredients.reduce((list, ing)=> {
-        return list + ing.text
+    const hasOneOrMoreIngredients = ingredients.reduce((combinedText, ingredient)=> {
+        return combinedText + ingredient.text
     }, '').length > 0;
     
     return (

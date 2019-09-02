@@ -26,9 +26,13 @@ class RecipeBuilder extends Component {
         }
     }
 
-    canBeSubmit = () => {
-        const { ingredients, name } = this.state
-        return !ingredients.length || !name.length // TODO; reduce ingredients
+    shouldDisableSubmit = () => {
+        const { ingredients, name } = this.state;
+        const hasOneOrMoreIngredients = ingredients.reduce((combinedText, ingredient)=> {
+            return combinedText + ingredient.text
+        }, '').length > 0;
+
+        return !hasOneOrMoreIngredients || !name.length
     }
 
     formChangeHandler = (e) => {
@@ -80,7 +84,7 @@ class RecipeBuilder extends Component {
     }
 
     saveRecipe = () => {
-        console.log(this.state);
+        //console.log(this.state);
     }
 
     componentDidMount() {
@@ -111,12 +115,12 @@ class RecipeBuilder extends Component {
                 ingredients,
                 bottomContent
             }, 
+            shouldDisableSubmit,
             formSubmitHandler,
             formChangeHandler,
             removeItemHandler,
             keyDownHandler,
             addIngredient,
-            canBeSubmit,
             saveRecipe 
         } = this;
 
@@ -176,7 +180,7 @@ class RecipeBuilder extends Component {
 
                         <button type='submit' className={'btn btn-success'}
                             onClick={ saveRecipe }
-                            disabled={ canBeSubmit() }>Save recipe</button>
+                            disabled={ shouldDisableSubmit() }>Save recipe</button>
 
                 </form>
             </div>
