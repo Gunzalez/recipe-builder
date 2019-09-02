@@ -1,6 +1,6 @@
 import React from 'react';
 
-const additionalContent = ({ position, content }) => {
+const additionalContent = ({ position, content, helperText }) => {
 
     return (
         <div className='form-group'>
@@ -8,7 +8,7 @@ const additionalContent = ({ position, content }) => {
 
                 <textarea data-name={position}
                     className='form-control'
-                    placeholder='e.g. Intorduction to the recipe'
+                    placeholder={helperText}
                     defaultValue={content}></textarea>
             </div>
         </div>

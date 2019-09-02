@@ -150,7 +150,10 @@ class RecipeBuilder extends Component {
                         </div>
 
                         <fieldset>
-                            <AdditionalContent position={'topContent'} content={topContent}  />
+                            <AdditionalContent 
+                                position={'topContent'}
+                                helperText={'e.g An Introduction to this recipe'}
+                                content={topContent}  />
                         </fieldset>
 
                         <fieldset>
@@ -165,7 +168,10 @@ class RecipeBuilder extends Component {
                         </fieldset>
 
                         <fieldset>
-                            <AdditionalContent position={'bottomContent'} content={bottomContent}  />
+                            <AdditionalContent 
+                                position={'bottomContent'}
+                                helperText={'e.g Any extra information'} 
+                                content={bottomContent}  />
                         </fieldset>
 
                         <button type='submit' className={'btn btn-success'}
