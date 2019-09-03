@@ -30,7 +30,7 @@ class RecipeBuilder extends Component {
         const { ingredients, name } = this.state;
         const hasOneOrMoreIngredients = ingredients.reduce((combinedText, ingredient)=> {
             return combinedText + ingredient.text
-        }, '').length > 0;
+        }, '').trim().length > 0;
 
         return !hasOneOrMoreIngredients || !name.length
     }

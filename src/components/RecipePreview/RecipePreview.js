@@ -6,7 +6,7 @@ const reciperReader = (props) => {
 
     const hasOneOrMoreIngredients = ingredients.reduce((combinedText, ingredient)=> {
         return combinedText + ingredient.text
-    }, '').length > 0;
+    }, '').trim().length > 0;
     
     return (
         <div className={'reader'}>
@@ -21,7 +21,7 @@ const reciperReader = (props) => {
                 { hasOneOrMoreIngredients && 
                         <ul>
                             { ingredients.map((ingredient, idx) => {
-                                return ingredient.text.length ? <li key={idx} className='p-ingredient'>{ingredient.text}</li> : null
+                                return ingredient.text.trim().length ? <li key={idx} className='p-ingredient'>{ingredient.text}</li> : null
                             })}
                         </ul>
                     }
