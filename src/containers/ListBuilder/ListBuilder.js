@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import ReciperReader from '../../components/RecipePreview/RecipePreview';
-import Ingredient from '../../components/Ingredient/Ingredient';
-import AdditionalContent from '../../components/AdditionalContent/AdditionalContent';
+import ReciperReader from '../../components/Preview/Preview';
+import Ingredient from '../../components/Item/Item';
+import Paragraph from '../../components/Paragraph/Paragraph';
 
 class RecipeBuilder extends Component {
 
@@ -153,7 +153,7 @@ class RecipeBuilder extends Component {
                         </div>
 
                         <fieldset>
-                            <AdditionalContent 
+                            <Paragraph 
                                 position={'topContent'}
                                 helperText={'e.g An Introduction to this recipe'}
                                 content={topContent}  />
@@ -171,7 +171,7 @@ class RecipeBuilder extends Component {
                         </fieldset>
 
                         <fieldset>
-                            <AdditionalContent 
+                            <Paragraph 
                                 position={'bottomContent'}
                                 helperText={'e.g Any extra information'} 
                                 content={bottomContent}  />

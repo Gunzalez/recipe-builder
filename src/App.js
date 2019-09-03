@@ -1,6 +1,6 @@
 import React from 'react';
-import RecipeBuilder from './containers/RecipeBuilder/RecipeBuilder';
+import ListBuilder from './containers/ListBuilder/ListBuilder';
 
-const App = () => <RecipeBuilder />;
+const App = () => <ListBuilder />;
 
 export default App;
