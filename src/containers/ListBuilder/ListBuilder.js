@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import ReciperReader from '../../components/Preview/Preview';
-import Ingredient from '../../components/Item/Item';
+import Preview from '../../components/Preview/Preview';
+import Item from '../../components/Item/Item';
 import Paragraph from '../../components/Paragraph/Paragraph';
 
-class RecipeBuilder extends Component {
+class ListBuilder extends Component {
 
     state = { 
         name: '',
@@ -128,7 +128,7 @@ class RecipeBuilder extends Component {
         if(ingredients.length){
             ingredientsList = ingredients.map(ingredient => {
                 const  { key, text } = ingredient;
-                return <Ingredient
+                return <Item
                     key={key}
                     dataKey={key}
                     ingredient={text}
@@ -182,10 +182,10 @@ class RecipeBuilder extends Component {
                             disabled={ shouldDisableSubmit() }>Save recipe</button>
 
                 </form>
-                <ReciperReader recipe={this.state} />
+                <Preview recipe={this.state} />
             </div>
         );
     }
 }
 
-export default RecipeBuilder;
+export default ListBuilder;
