@@ -15,7 +15,7 @@ const reciperReader = (props) => {
             <hr />
 
             <article className={'h-recipe'}>
-                { name.length ? <h4 className='p-name'>{name}</h4> : null }
+                { name.length ? <h4 className='p-name'>{ name }</h4> : null }
                 { topContent.length ? <p className='content'>{ topContent }</p> : null }
                 { hasOneOrMoreIngredients && <p><strong>INGREDIENTS</strong></p> }
                 { hasOneOrMoreIngredients && 

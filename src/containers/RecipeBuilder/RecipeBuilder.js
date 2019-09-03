@@ -140,7 +140,6 @@ class RecipeBuilder extends Component {
         
         return (
             <div className={'demo'}>
-                <ReciperReader recipe={this.state} />
                 <form onSubmit={formSubmitHandler} onChange={formChangeHandler}>
 
                     <div className='form-group'>
@@ -183,6 +182,7 @@ class RecipeBuilder extends Component {
                             disabled={ shouldDisableSubmit() }>Save recipe</button>
 
                 </form>
+                <ReciperReader recipe={this.state} />
             </div>
         );
     }
