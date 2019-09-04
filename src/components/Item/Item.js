@@ -1,6 +1,14 @@
 import React from 'react';
+import ConfirmButton from '../UI/ConfirmButton/ConfirmButton';
 
-const ingredient = ({ dataKey, ingredient, removeIngredient, inputKeyDowned }) => {
+
+const ingredient = ({ 
+        dataKey, 
+        ingredient, 
+        removeIngredient, 
+        inputKeyDowned, 
+        confirmRemove, 
+        deleteState }) => {
     return (
         <div className='form-group'>
             <div className='ingredient-row'>
@@ -15,11 +23,11 @@ const ingredient = ({ dataKey, ingredient, removeIngredient, inputKeyDowned }) =
                     data-key={ dataKey }
                     autoFocus />
 
-                <button type='button' className='btn btn-default'
-                    onClick={removeIngredient}>
-                        <i className="material-icons">clear</i>
-                </button>
-
+                <ConfirmButton
+                    deleteState={deleteState}
+                    removeIngredient={removeIngredient}
+                    confirmRemove={ confirmRemove}
+                    />
             </div>
 
         </div>

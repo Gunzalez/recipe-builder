@@ -52,6 +52,24 @@ fieldset {
   position: absolute;
   right: 0;
   top: 0;
+  display: flex;
+  align-items: center;
+  color: red;
+  outline: none;
+}
+
+.ingredient-row button i {
+  margin-right: 5px;
+  color: red;
+}
+
+.ingredient-row button.delete {
+  background: red;
+  color: white;
+}
+
+.ingredient-row button.delete i {
+  color: white;
 }
 
 h4 {

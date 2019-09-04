@@ -12,7 +12,8 @@ class ListBuilder extends Component {
         name: '',
         topContent: '',
         ingredients: [],
-        bottomContent: ''
+        bottomContent: '',
+        idOfItemToRemove: ''
     }
 
     addIngredient = (idx) => {
@@ -20,12 +21,13 @@ class ListBuilder extends Component {
             key: Date.now(), 
             text: '' 
         }
+        const idOfItemToRemove = '';
         if(typeof(idx) === 'number' && idx > -1){
             const ingredients = [...this.state.ingredients];
             ingredients.splice(idx + 1, 0, freshIngredient);
-            this.setState({ ingredients });
+            this.setState({ ingredients, idOfItemToRemove });
         } else {
-            this.setState({ ingredients: [ ...this.state.ingredients, freshIngredient ] });
+            this.setState({ ingredients: [ ...this.state.ingredients, freshIngredient ], idOfItemToRemove });
         }
     }
 
@@ -40,6 +42,7 @@ class ListBuilder extends Component {
 
     formChangeHandler = (e) => {
         const identifier = e.target.dataset.name;
+        const idOfItemToRemove = '';
         switch(identifier){
             case 'ingredient':
                 const ingredients = this.state.ingredients.map(ingredient => {
@@ -50,22 +53,23 @@ class ListBuilder extends Component {
                         return ingredient;
                     }
                 })
-                this.setState({ ingredients });
+                this.setState({ ingredients, idOfItemToRemove });
                 break;             
             default:
-                this.setState({ [identifier]: e.target.value });
+                this.setState({ [identifier]: e.target.value, idOfItemToRemove });
                 break;
         }
     }
 
     removeItemHandler = (key, itemType) => {
+        const idOfItemToRemove = '';
         switch(itemType){
             case 'ingredient':
                 {
                     const ingredients = [...this.state.ingredients];
                     const index = this.state.ingredients.findIndex(ingredient => ingredient.key === key);
                     ingredients.splice(index, 1);
-                    this.setState({ ingredients });
+                    this.setState({ ingredients, idOfItemToRemove });
                     break;
                 }
             case 'content':
@@ -73,7 +77,7 @@ class ListBuilder extends Component {
                     const additionalContent = [...this.state.additionalContent];
                     const index = this.state.additionalContent.findIndex(content => content.key === key);
                     additionalContent.splice(index, 1);
-                    this.setState({ additionalContent });
+                    this.setState({ additionalContent, idOfItemToRemove });
                     break;
                 }
             default:
@@ -109,6 +113,14 @@ class ListBuilder extends Component {
         }      
     }
 
+    confirmRemoveHandler = (idOfItemToRemove) => {
+        this.setState({ idOfItemToRemove })
+    }
+
+    itemsReorderHandler = (ingredients) => {
+        this.setState({ ingredients });
+    }
+
 
     render() {
 
@@ -116,12 +128,15 @@ class ListBuilder extends Component {
                 name, 
                 topContent, 
                 ingredients,
-                bottomContent
+                bottomContent,
+                idOfItemToRemove
             }, 
             shouldDisableSubmit,
+            confirmRemoveHandler,
             formSubmitHandler,
             formChangeHandler,
             removeItemHandler,
+            itemsReorderHandler,
             keyDownHandler,
             addIngredient,
             saveRecipe 
@@ -135,8 +150,10 @@ class ListBuilder extends Component {
                     key={key}
                     dataKey={key}
                     ingredient={text}
-                    inputKeyDowned={ keyDownHandler }
-                    removeIngredient={() => { removeItemHandler(key,'ingredient')}}
+                    inputKeyDowned={keyDownHandler}
+                    deleteState={key === idOfItemToRemove}
+                    confirmRemove= {() => confirmRemoveHandler(key) }
+                    removeIngredient={() => removeItemHandler(key,'ingredient')}
                     />
             })
         }
@@ -169,7 +186,7 @@ class ListBuilder extends Component {
                                 onChange={(order, sortable, evt) => {
                                     const listItems = [...this.state.ingredients]
                                     arrayMove.mutate(listItems, evt.oldIndex, evt.newIndex);
-                                    this.setState({ ingredients: listItems });
+                                    itemsReorderHandler(listItems);
                                 }}>
                                 { ingredientsList }
                             </Sortable>
