@@ -97,7 +97,7 @@ class ListBuilder extends Component {
     };
 
     keyDownHandler = (e) => {
-        var keynum;
+        let keynum;
         if(window.event) { // IE                    
             keynum = e.keyCode;
         } else if(e.which){ // Netscape/Firefox/Opera                   
@@ -127,7 +127,7 @@ class ListBuilder extends Component {
             saveRecipe 
         } = this;
 
-        let ingredientsList = <p>Recipe needs at least one ingredient.</p>;
+        let ingredientsList = <p>A Whisk recipe needs at least one ingredient.</p>;
         if(ingredients.length){
             ingredientsList = ingredients.map(ingredient => {
                 const  { key, text } = ingredient;
@@ -152,16 +152,18 @@ class ListBuilder extends Component {
                         <input type='text'
                             className='form-control'
                             data-name='name' 
+                            placeholder='A Whisk recipe must a title'
                             defaultValue={name} />
                         </div>
 
                         <fieldset>
                             <Paragraph 
                                 position={'topContent'}
-                                helperText={'e.g An Introduction to this recipe'}
-                                content={topContent}  />
+                                helperText={'Introduction paragpragh (optional)'}
+                                content={topContent}/>
                         </fieldset>
 
+                        <p>Recipe ingredients</p>
                         <fieldset>
                             <Sortable
                                 onChange={(order, sortable, evt) => {
@@ -183,7 +185,7 @@ class ListBuilder extends Component {
                         <fieldset>
                             <Paragraph 
                                 position={'bottomContent'}
-                                helperText={'e.g Any extra information'} 
+                                helperText={'Additonal paragpragh (optional)'} 
                                 content={bottomContent}  />
                         </fieldset>
 

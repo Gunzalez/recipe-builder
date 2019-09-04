@@ -5,6 +5,8 @@ const ingredient = ({ dataKey, ingredient, removeIngredient, inputKeyDowned }) =
         <div className='form-group'>
             <div className='ingredient-row'>
 
+                <i className="material-icons drag-icon">drag_indicator</i>
+
                 <input type='text'
                     className='form-control'
                     data-name='ingredient'

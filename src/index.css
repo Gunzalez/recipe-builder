@@ -40,6 +40,8 @@ fieldset {
 .ingredient-row,
 .content-row {
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .ingredient-row input {
@@ -65,6 +67,11 @@ h4 {
 
 .content-row input {
   margin-bottom: 10px;
+}
+
+.drag-icon {
+  margin-right: 10px;
+  cursor: move;
 }
 
 .content-row textarea {
