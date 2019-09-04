@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import Sortable from 'react-sortablejs';
+import arrayMove from 'array-move';
+
 import Preview from '../../components/Preview/Preview';
 import Item from '../../components/Item/Item';
 import Paragraph from '../../components/Paragraph/Paragraph';
@@ -160,7 +163,14 @@ class ListBuilder extends Component {
                         </fieldset>
 
                         <fieldset>
-                            { ingredientsList }
+                            <Sortable
+                                onChange={(order, sortable, evt) => {
+                                    const listItems = [...this.state.ingredients]
+                                    arrayMove.mutate(listItems, evt.oldIndex, evt.newIndex);
+                                    this.setState({ ingredients: listItems });
+                                }}>
+                                { ingredientsList }
+                            </Sortable>
 
                             <div className='text-right'>
                                 <button type='button' className='btn btn-default'
