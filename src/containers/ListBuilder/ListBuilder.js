@@ -121,7 +121,6 @@ class ListBuilder extends Component {
         this.setState({ ingredients });
     }
 
-
     render() {
 
         const { state: { 
@@ -191,12 +190,14 @@ class ListBuilder extends Component {
                                 { ingredientsList }
                             </Sortable>
 
-                            <div className='text-right'>
+                            <div className='add-ingredients'>
                                 <button type='button' className='btn btn-default'
                                     onClick={addIngredient}>
                                         <i className="material-icons">add</i>
+                                        <span>Add ingredients</span>
                                 </button>
                             </div>
+
                         </fieldset>
 
                         <fieldset>
