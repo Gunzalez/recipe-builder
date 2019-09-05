@@ -21,6 +21,7 @@ const ingredient = ({
                     defaultValue={ ingredient } 
                     onKeyDown={ inputKeyDowned }
                     data-key={ dataKey }
+                    title='While typing press Return/Enter for a new line'
                     autoFocus />
 
                 <ConfirmButton

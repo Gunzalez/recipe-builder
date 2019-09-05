@@ -91,7 +91,11 @@ class ListBuilder extends Component {
     }
 
     saveRecipe = () => {
-        //console.log(this.state);
+        console.log(this.state);
+    }
+
+    deleRecipe = () => {
+
     }
 
     componentDidMount() {
@@ -138,7 +142,8 @@ class ListBuilder extends Component {
             itemsReorderHandler,
             keyDownHandler,
             addIngredient,
-            saveRecipe 
+            saveRecipe,
+            deleRecipe 
         } = this;
 
         let ingredientsList = <p>A Whisk recipe needs at least one ingredient.</p>;
@@ -163,7 +168,7 @@ class ListBuilder extends Component {
 
                     <div className='form-group'>
 
-                        <label htmlFor='name'>Recipe title</label>
+                        <label htmlFor='name'>Whisk recipe title</label>
 
                         <input type='text'
                             className='form-control'
@@ -179,7 +184,7 @@ class ListBuilder extends Component {
                                 content={topContent}/>
                         </fieldset>
 
-                        <p>Recipe ingredients</p>
+                        <p>Whisk recipe ingredients</p>
                         <fieldset>
                             <Sortable
                                 onChange={(order, sortable, evt) => {
@@ -207,9 +212,16 @@ class ListBuilder extends Component {
                                 content={bottomContent}  />
                         </fieldset>
 
-                        <button type='submit' className={'btn btn-success'}
-                            onClick={ saveRecipe }
-                            disabled={ shouldDisableSubmit() }>Save recipe</button>
+                        <div className='form-actions'>
+
+                            {/* <a href='#' className='delete-link'
+                                onClick={ deleRecipe }>Delete recipe</a> */}
+
+                            <button type='submit' className={'btn btn-success'}
+                                onClick={ saveRecipe }
+                                disabled={ shouldDisableSubmit() }>Save recipe</button>
+
+                        </div>
 
                 </form>
                 <Preview recipe={this.state} />

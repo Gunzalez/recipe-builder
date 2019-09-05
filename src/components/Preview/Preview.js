@@ -11,8 +11,10 @@ const reciperReader = (props) => {
     return (
         <div className={'reader'}>
 
-            <p>Preview (as it appears on website)</p>
-            <hr />
+            <div className='header'>
+                <span>Preview </span>
+                {/* <span className='pill'>You have unsaved changes!</span> */}
+            </div>
 
             <article className={'h-recipe'}>
                 { name.length ? <h4 className='p-name'>{ name }</h4> : null }
@@ -30,7 +32,7 @@ const reciperReader = (props) => {
 
             { name.length && hasOneOrMoreIngredients ? 
                 <div className='whisk-button'>
-                    <p>The Whisk recipe ingredient buttons will appear here</p>
+                    <p>The Whisk recipe buttons will appear here.</p>
                 </div>
                 :
                 null

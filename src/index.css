@@ -25,17 +25,16 @@ form, .reader {
   margin: 20px auto;
   padding-top: 20px;
 }
-
-button.btn {
-  display: flex;
-  align-items: center;
-}
-
 fieldset {
   background: whitesmoke;
   padding: 15px 15px 0 15px;
   margin-bottom: 20px;
   border-radius: 6px;
+}
+
+fieldset button.btn {
+  display: flex;
+  align-items: center;
 }
 
 .ingredient-row,
@@ -132,4 +131,35 @@ fieldset .form-group:nth-last-child(1) {
   margin: 0;
   padding: 0;
   color: #cccccc;
+}
+
+.form-actions,
+.reader .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete-link {
+  text-decoration: underline;
+  color: red;
+}
+
+.delete-link:hover {
+  text-decoration: none;
+  color: red;
+}
+
+.reader .header {
+  border-bottom: 1px solid #cccccc;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+}
+
+.pill {
+  display: inline-block;
+  color: red;
+  font-weight: bold;
+  font-size: 0.8em;
+  text-transform: uppercase;
 }
