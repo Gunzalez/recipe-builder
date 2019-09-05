@@ -11,7 +11,7 @@ const reciperReader = (props) => {
     return (
         <div className={'reader'}>
 
-            <p>Preview</p>
+            <p>Preview (as it appears on website)</p>
             <hr />
 
             <article className={'h-recipe'}>

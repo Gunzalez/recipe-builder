@@ -6,7 +6,7 @@ const confirmButton = ({ deleteState, removeIngredient, confirmRemove }) => {
         <button type='button' className={deleteState ? 'btn btn-default delete' : 'btn btn-default'}
             onClick={ deleteState ? removeIngredient : confirmRemove }>
                 <i className="material-icons">clear</i>
-                { deleteState ? <span>Are you really sure?</span> : null }
+                { deleteState ? <span>Are you sure?</span> : null }
         </button>
     )
 }
