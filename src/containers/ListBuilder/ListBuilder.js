@@ -94,7 +94,7 @@ class ListBuilder extends Component {
         console.log(this.state);
     }
 
-    deleRecipe = () => {
+    deleteRecipe = () => {
 
     }
 
@@ -143,7 +143,7 @@ class ListBuilder extends Component {
             keyDownHandler,
             addIngredient,
             saveRecipe,
-            deleRecipe 
+            deleteRecipe 
         } = this;
 
         let ingredientsList = <p>A Whisk recipe needs at least one ingredient.</p>;
@@ -215,7 +215,7 @@ class ListBuilder extends Component {
                         <div className='form-actions'>
 
                             {/* <a href='#' className='delete-link'
-                                onClick={ deleRecipe }>Delete recipe</a> */}
+                                onClick={ deleteRecipe }>Delete recipe</a> */}
 
                             <button type='submit' className={'btn btn-success'}
                                 onClick={ saveRecipe }
