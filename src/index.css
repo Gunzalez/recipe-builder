@@ -119,3 +119,17 @@ fieldset .form-group:nth-last-child(1) {
 .content {
   padding: 10px 0 15px 0;
 }
+
+.whisk-button {
+  margin-top: 40px;
+  border: 2px dashed #cccccc;
+  text-align: center;
+  padding: 30px 0;
+  border-radius: 4px;
+}
+
+.whisk-button p {
+  margin: 0;
+  padding: 0;
+  color: #cccccc;
+}

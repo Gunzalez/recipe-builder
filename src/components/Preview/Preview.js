@@ -28,6 +28,14 @@ const reciperReader = (props) => {
                 { bottomContent.length ? <p className='content'>{ bottomContent }</p> : null }
             </article>
 
+            { name.length && hasOneOrMoreIngredients ? 
+                <div className='whisk-button'>
+                    <p>The Whisk recipe ingredient buttons will appear here</p>
+                </div>
+                :
+                null
+            }
+
         </div>
     );
 }

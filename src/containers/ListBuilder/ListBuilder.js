@@ -168,7 +168,7 @@ class ListBuilder extends Component {
                         <input type='text'
                             className='form-control'
                             data-name='name' 
-                            placeholder='A Whisk recipe must a title'
+                            placeholder='A Whisk recipe must have a title'
                             defaultValue={name} />
                         </div>
 
