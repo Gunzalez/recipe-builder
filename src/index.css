@@ -44,6 +44,13 @@ fieldset button.btn {
   align-items: center;
 }
 
+.ingredient-row textarea {
+  height: 38px;
+  resize: none;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .ingredient-row input {
   padding-right: 50px;
 }
@@ -117,6 +124,7 @@ fieldset .form-group:nth-last-child(1) {
 
 .content {
   padding: 10px 0 15px 0;
+  white-space: pre-line;
 }
 
 .whisk-button {

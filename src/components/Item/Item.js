@@ -9,20 +9,22 @@ const ingredient = ({
         inputKeyDowned, 
         confirmRemove, 
         deleteState }) => {
+            
     return (
         <div className='form-group'>
             <div className='ingredient-row'>
 
                 <i className="material-icons drag-icon">drag_indicator</i>
 
-                <input type='text'
-                    className='form-control'
+                <textarea
+                    className='form-control single-line'
                     data-name='ingredient'
                     defaultValue={ ingredient } 
                     onKeyDown={ inputKeyDowned }
                     data-key={ dataKey }
+                    rows='1'
                     title='While typing press Return/Enter for a new line'
-                    autoFocus />
+                    autoFocus></textarea>
 
                 <ConfirmButton
                     deleteState={deleteState}
