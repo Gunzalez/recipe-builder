@@ -55,41 +55,22 @@ class ListBuilder extends Component {
         switch(identifier){
             case 'ingredient':
 
-                const arrayOfLines = e.target.value.split('\n').filter(singleLine => {
-                    if(singleLine.trim().length > 0){
-                        return singleLine
-                    }
-                })
+                const arrayOfLines = e.target.value.split('\n').filter(singleLine => singleLine.trim().length > 0)
                 const ingredients = arrayOfLines.map((singleLine, i) => {
                     return {
                         key: Date.now() + i,
                         text: singleLine
                     }
                 })
-                switch(ingredients.length){
-                    case 0:
-                        // do what now?
-
-
-                        break;
-                    case 1:
-                        const currentArray = [...this.state.ingredients];
-                        const xindex = findWithAttr(currentArray, 'key', parseInt(e.target.dataset.key));
-                        currentArray[xindex].text = e.target.value;
-                        this.setState({ ingredients: currentArray, idOfItemToRemove });
-                        break;
-                    default:
-                        // replace all of array
-                        const existingArray = [...this.state.ingredients];
-                        const index = findWithAttr(existingArray, 'key', parseInt(e.target.dataset.key));
-                        existingArray.splice(index, 1, ...ingredients);
-                        this.setState({ ingredients: existingArray, idOfItemToRemove }); 
-                        break;
+                const existingArray = [...this.state.ingredients];
+                const index = findWithAttr(existingArray, 'key', parseInt(e.target.dataset.key));
+                if(ingredients.length === 1){
+                    existingArray[index].text = e.target.value;
+                } else if(ingredients.length > 1){
+                    existingArray.splice(index, 1, ...ingredients);
                 }
-
-
-                
-                break;             
+                this.setState({ ingredients: existingArray, idOfItemToRemove }); 
+                break;           
             default:                
                 this.setState({ [identifier]: e.target.value, idOfItemToRemove });
                 break;
@@ -223,6 +204,9 @@ class ListBuilder extends Component {
                         <p>Whisk recipe ingredients</p>
                         <fieldset>
                             <Sortable
+                                options={{
+                                    handle: ".drag-icon"
+                                }}
                                 onChange={(order, sortable, evt) => {
                                     const listItems = [...this.state.ingredients]
                                     arrayMove.mutate(listItems, evt.oldIndex, evt.newIndex);

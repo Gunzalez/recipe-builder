@@ -17,7 +17,7 @@ const ingredient = ({
                 <i className="material-icons drag-icon">drag_indicator</i>
 
                 <textarea
-                    className='form-control single-line'
+                    className='form-control'
                     data-name='ingredient'
                     defaultValue={ ingredient } 
                     onKeyDown={ inputKeyDowned }
