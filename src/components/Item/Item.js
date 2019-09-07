@@ -1,13 +1,13 @@
 import React from 'react';
 import ConfirmButton from '../UI/ConfirmButton/ConfirmButton';
 
-
 const ingredient = ({ 
         dataKey, 
         ingredient, 
         removeIngredient, 
         inputKeyDowned, 
-        confirmRemove, 
+        confirmRemove,
+        clearRemove, 
         deleteState }) => {
             
     return (
@@ -23,14 +23,21 @@ const ingredient = ({
                     onKeyDown={ inputKeyDowned }
                     data-key={ dataKey }
                     rows='1'
-                    title='While typing press Return/Enter for a new line'
+                    title='Paste or type and press Return/Enter'
+                    onClick={clearRemove}
+                    onFocus={(e)=> {
+                        let temp_value = e.target.value;
+                        e.target.value = '';
+                        e.target.value = temp_value;
+                    }}
                     autoFocus></textarea>
 
                 <ConfirmButton
                     deleteState={deleteState}
                     removeIngredient={removeIngredient}
-                    confirmRemove={ confirmRemove}
+                    confirmRemove={confirmRemove} 
                     />
+
             </div>
 
         </div>

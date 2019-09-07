@@ -114,6 +114,11 @@ class ListBuilder extends Component {
 
     }
 
+    clearRemoveHandler = () => {
+        const idOfItemToRemove = '';
+        this.setState({ idOfItemToRemove })
+    }
+
     componentDidMount() {
         if(!this.state.ingredients.length){
             this.addIngredient();
@@ -156,6 +161,7 @@ class ListBuilder extends Component {
             formSubmitHandler,
             formChangeHandler,
             removeItemHandler,
+            clearRemoveHandler,
             itemsReorderHandler,
             keyDownHandler,
             addIngredient,
@@ -173,7 +179,8 @@ class ListBuilder extends Component {
                     ingredient={text}
                     inputKeyDowned={keyDownHandler}
                     deleteState={key === idOfItemToRemove}
-                    confirmRemove= {() => confirmRemoveHandler(key) }
+                    clearRemove={ clearRemoveHandler }
+                    confirmRemove={() => confirmRemoveHandler(key) }
                     removeIngredient={() => removeItemHandler(key,'ingredient')}
                     />
             })

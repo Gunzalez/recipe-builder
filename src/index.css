@@ -51,7 +51,7 @@ fieldset button.btn {
   overflow: hidden;
 }
 
-.ingredient-row input {
+.ingredient-row textarea {
   padding-right: 50px;
 }
 
@@ -170,4 +170,8 @@ fieldset .form-group:nth-last-child(1) {
   font-weight: bold;
   font-size: 0.8em;
   text-transform: uppercase;
+}
+
+.sortable-ghost {
+  opacity: 0;
 }
