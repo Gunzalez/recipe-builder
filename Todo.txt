@@ -1,9 +1,18 @@
 Clear all ingredients button
-Resize move handle (Alex)
-Move remove button outside textarea
-    - Changin textarea width when in delete mode
-Rebuild remove button to change hotspot
 Validation
 Saving data
 Alerts
 Adding to window onunload event
+
+
+DONE
+=============
+Move remove button outside textarea
+Rebuild remove button to change hotspot
+
+
+
+NOT DOING
+=============
+Resize move handle (Alex) - Awaiting final design
+Changing textarea width when in delete mode - Awaiting final design
