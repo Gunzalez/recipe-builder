@@ -52,7 +52,7 @@ fieldset button.btn {
 }
 
 .ingredient-row textarea {
-  padding-right: 50px;
+  margin-right: 40px;
 }
 
 .ingredient-row button {
@@ -61,6 +61,8 @@ fieldset button.btn {
   top: 0;
   color: red;
   outline: none;
+  padding-left: 2px; 
+  padding-right: 2px; 
 }
 
 .ingredient-row button i {
@@ -75,6 +77,15 @@ button i + span {
 .ingredient-row button.delete {
   background: red;
   color: white;
+  padding-left: 10px; 
+  padding-right: 10px; 
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  outline: none !important;
+}
+
+.ingredient-row button:focus {
+  box-shadow: none;
 }
 
 .ingredient-row button.delete i {
