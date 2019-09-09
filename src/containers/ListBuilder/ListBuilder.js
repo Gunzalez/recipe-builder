@@ -189,7 +189,7 @@ class ListBuilder extends Component {
 
                     <div className='form-group'>
 
-                        <label htmlFor='name'>Whisk recipe title</label>
+                        <label htmlFor='name'>Title *</label>
 
                         <input type='text'
                             className='form-control'
@@ -205,7 +205,7 @@ class ListBuilder extends Component {
                                 content={topContent}/>
                         </fieldset>
 
-                        <p>Whisk recipe ingredients</p>
+                        <p>Recipe ingredients *</p>
                         <fieldset>
                             <Sortable
                                 options={{
