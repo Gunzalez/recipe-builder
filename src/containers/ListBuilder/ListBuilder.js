@@ -30,13 +30,12 @@ class ListBuilder extends Component {
             key: Date.now(), 
             text: '' 
         }
-        const idOfItemToRemove = '';
         if(typeof(idx) === 'number' && idx > -1){
             const ingredients = [...this.state.ingredients];
             ingredients.splice(idx + 1, 0, freshIngredient);
-            this.setState({ ingredients, idOfItemToRemove });
+            this.setState({ ingredients });
         } else {
-            this.setState({ ingredients: [ ...this.state.ingredients, freshIngredient ], idOfItemToRemove });
+            this.setState({ ingredients: [ ...this.state.ingredients, freshIngredient ] });
         }
     }
 
@@ -51,7 +50,6 @@ class ListBuilder extends Component {
 
     formChangeHandler = (e) => {
         const identifier = e.target.dataset.name;
-        const idOfItemToRemove = '';
         switch(identifier){
             case 'ingredient':
 
@@ -69,23 +67,22 @@ class ListBuilder extends Component {
                 } else if(ingredients.length > 1){
                     existingArray.splice(index, 1, ...ingredients);
                 }
-                this.setState({ ingredients: existingArray, idOfItemToRemove }); 
+                this.setState({ ingredients: existingArray }); 
                 break;           
             default:                
-                this.setState({ [identifier]: e.target.value, idOfItemToRemove });
+                this.setState({ [identifier]: e.target.value });
                 break;
         }
     }
 
     removeItemHandler = (key, itemType) => {
-        const idOfItemToRemove = '';
         switch(itemType){
             case 'ingredient':
                 {
                     const ingredients = [...this.state.ingredients];
                     const index = this.state.ingredients.findIndex(ingredient => ingredient.key === key);
                     ingredients.splice(index, 1);
-                    this.setState({ ingredients, idOfItemToRemove });
+                    this.setState({ ingredients });
                     break;
                 }
             case 'content':
@@ -93,7 +90,7 @@ class ListBuilder extends Component {
                     const additionalContent = [...this.state.additionalContent];
                     const index = this.state.additionalContent.findIndex(content => content.key === key);
                     additionalContent.splice(index, 1);
-                    this.setState({ additionalContent, idOfItemToRemove });
+                    this.setState({ additionalContent });
                     break;
                 }
             default:
@@ -112,11 +109,6 @@ class ListBuilder extends Component {
 
     deleteRecipe = () => {
 
-    }
-
-    clearRemoveHandler = () => {
-        const idOfItemToRemove = '';
-        this.setState({ idOfItemToRemove })
     }
 
     componentDidMount() {
@@ -140,6 +132,11 @@ class ListBuilder extends Component {
     }
 
     confirmRemoveHandler = (idOfItemToRemove) => {
+        this.setState({ idOfItemToRemove })
+    }
+
+    clearRemoveHandler = () => {
+        const idOfItemToRemove = '';
         this.setState({ idOfItemToRemove })
     }
 

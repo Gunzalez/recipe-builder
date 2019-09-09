@@ -23,8 +23,7 @@ const ingredient = ({
                     onKeyDown={ inputKeyDowned }
                     data-key={ dataKey }
                     rows='1'
-                    title='Paste or type and press Return/Enter'
-                    onClick={clearRemove}
+                    title='Paste a list or type and press Return/Enter'
                     onFocus={(e)=> {
                         let temp_value = e.target.value;
                         e.target.value = '';
@@ -35,7 +34,8 @@ const ingredient = ({
                 <ConfirmButton
                     deleteState={deleteState}
                     removeIngredient={removeIngredient}
-                    confirmRemove={confirmRemove} 
+                    confirmRemove={confirmRemove}
+                    clearRemove={clearRemove}
                     />
 
             </div>
