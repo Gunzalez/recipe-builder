@@ -65,7 +65,7 @@ fieldset button.btn {
   padding-right: 2px; 
 }
 
-.ingredient-row button i {
+.ingredient-row > button i {
   color: red;
 }
 
@@ -74,22 +74,13 @@ button i + span {
   margin-left: 5px;
 }
 
-.ingredient-row button.delete {
-  background: red;
-  color: white;
-  padding-left: 10px; 
-  padding-right: 10px; 
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  outline: none !important;
-}
-
 .btn-outer {
+  border-top-right-radius: .25em;
+  border-bottom-right-radius: .25em;
   position: absolute;
   right: 0;
   top: 0;
-  padding-right: 12px;
-  border-radius: .25rem;
+  padding: 0 12px;
 
   display: flex;
   align-items: center;
@@ -97,13 +88,19 @@ button i + span {
   background: red;
 }
 
-.ingredient-row button:focus {
-  /* box-shadow: none; */
+.btn-outer button {
+  background: red;
+  color: white;
+  padding: 6px;
+  margin-right: 10px; 
 }
 
-.ingredient-row button.delete i {
+
+.btn-outer button:hover {
   color: white;
 }
+
+
 
 h4 {
   margin-bottom: 20px;
