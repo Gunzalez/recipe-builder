@@ -1,6 +1,6 @@
 import React from 'react';
 
-const paragraph = ({ position, content, helperText }) => {
+const content = ({ position, content, helperText }) => {
 
     return (
         <div className='form-group'>
@@ -15,4 +15,4 @@ const paragraph = ({ position, content, helperText }) => {
     );
 }
 
-export default paragraph;
+export default content;

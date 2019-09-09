@@ -4,7 +4,7 @@ import arrayMove from 'array-move';
 
 import Preview from '../../components/Preview/Preview';
 import Item from '../../components/Item/Item';
-import Paragraph from '../../components/Paragraph/Paragraph';
+import Content from '../../components/Content/Content';
 
 function findWithAttr(array, attr, value) {
     for(var i = 0; i < array.length; i += 1) {
@@ -202,9 +202,9 @@ class ListBuilder extends Component {
                         </div>
 
                         <fieldset>
-                            <Paragraph 
+                            <Content 
                                 position={'topContent'}
-                                helperText={'Introduction paragpragh (optional)'}
+                                helperText={'Introduction copy (optional)'}
                                 content={topContent}/>
                         </fieldset>
 
@@ -233,9 +233,9 @@ class ListBuilder extends Component {
                         </fieldset>
 
                         <fieldset>
-                            <Paragraph 
+                            <Content 
                                 position={'bottomContent'}
-                                helperText={'Additonal paragpragh (optional)'} 
+                                helperText={'Additonal copy (optional)'} 
                                 content={bottomContent}  />
                         </fieldset>
 
