@@ -1,17 +1,26 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import Preview from '../../components/Preview/Preview';
 
-import { hasAtleastOne } from '../../helpers';
+import { hasAtleastOne, fakeRecipe } from '../../helpers';
 
 class ListBuilder extends Component {
 
-    state = { 
-        name: '',
-        introduction: '',
-        ingredients: [],
-        instructions: [],
-        additonal: ''
+    constructor(props){
+        super(props);
+        this.state = { 
+            name: '',
+            introduction: '',
+            ingredients: [],
+            instructions: [],
+            additonal: ''
+        }
+        this.recipeTitle = createRef();
+        this.recipeIngredients = createRef();
+        this.recipeInstructions = createRef();
+        this.recipeIntroduction = createRef();
+        this.recipeAdditonal = createRef();
     }
+
 
     shouldDisableSubmit = () => {
         const { ingredients, name } = this.state;
@@ -41,9 +50,13 @@ class ListBuilder extends Component {
     }
 
     componentDidMount() {
-        // if(!this.state.ingredients.length){
-        //     this.addIngredient();
-        // }
+        const recipe = fakeRecipe();
+        this.recipeTitle.current.value = recipe.name
+        this.recipeIntroduction.current.value = recipe.introduction
+        this.recipeIngredients.current.value = recipe.ingredients.join('\n')
+        this.recipeInstructions.current.value = recipe.instructions.join('\n')
+        this.recipeAdditonal.current.value = recipe.additonal
+        this.setState({ ...recipe })
     };
 
     keyDownHandler = (e) => {
@@ -65,7 +78,7 @@ class ListBuilder extends Component {
                 introduction, 
                 ingredients,
                 instructions,
-                addtional
+                additonal
             }, 
             shouldDisableSubmit,
             formSubmitHandler,
@@ -84,7 +97,8 @@ class ListBuilder extends Component {
                         <label htmlFor='name'>Title *</label>
                         <input type='text'
                             className='form-control'
-                            name='name' 
+                            name='name'
+                            ref={this.recipeTitle} 
                             placeholder='Recipe title is mandatory'
                             defaultValue={name} />
                     </div>
@@ -94,11 +108,12 @@ class ListBuilder extends Component {
                             <label htmlFor="introduction">Introduction</label>
                             <textarea
                                 id={'introduction'}
+                                ref={this.recipeIntroduction}
                                 className='form-control'
                                 name={'introduction'}
                                 placeholder={'Introduction (optional)'}
                                 onKeyDown={keyDownHandler}
-                                content={introduction}></textarea>
+                                defaultValue={introduction}></textarea>
                         </fieldset>
                     </div>
 
@@ -108,11 +123,12 @@ class ListBuilder extends Component {
                             
                             <textarea
                                 id={'ingredients'}
+                                ref={this.recipeIngredients}
                                 className='form-control ingredients'
                                 data-type={'list'}
                                 name={'ingredients'}
                                 placeholder={'Recipe ingredients are mandatory'}
-                                content={ingredients}></textarea>
+                                defaultValue={ingredients}></textarea>
 
                             <div className={'help'}>
                                 <i className="material-icons">
@@ -128,11 +144,12 @@ class ListBuilder extends Component {
                             <label htmlFor="instructions">Instructions</label>
                             <textarea
                                 id={'instructions'}
+                                ref={this.recipeInstructions}
                                 className='form-control instructions'
                                 data-type={'list'}
                                 name={'instructions'}
                                 placeholder={'Instructions (optional)'}
-                                content={instructions}></textarea>
+                                defaultValue={instructions}></textarea>
                         </fieldset>
                     </div>
 
@@ -141,11 +158,12 @@ class ListBuilder extends Component {
                             <label htmlFor="additonal">Additonal copy</label>
                             <textarea
                                 id={'additonal'}
+                                ref={this.recipeAdditonal}
                                 className='form-control'
                                 name={'additonal'}
                                 placeholder={'Additonal copy (optional)'}
                                 onKeyDown={keyDownHandler}
-                                content={addtional}></textarea>
+                                defaultValue={additonal}></textarea>
                         </fieldset>
                     </div>
                         
