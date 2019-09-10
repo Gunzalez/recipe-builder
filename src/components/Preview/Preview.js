@@ -15,10 +15,6 @@ const reciperReader = (props) => {
         instructions, 
         additonal }
     } = props;
-
-    const hasOneOrMoreIngredients = hasAtleastOne(ingredients);
-
-    const hasAtLeastOneIntruction = hasAtleastOne(instructions);
     
     return (
         <div className={'reader'}>
@@ -31,16 +27,16 @@ const reciperReader = (props) => {
             <article className={'h-recipe'}>
                 { name.length ? <h3 className='p-name'>{ name }</h3> : null }
                 { introduction.length ? <div className='content'>{ introduction }</div> : null }
-                { hasOneOrMoreIngredients && <h4>Ingredients</h4> }
-                { hasOneOrMoreIngredients && 
+                { hasAtleastOne(ingredients) && <h4>Ingredients</h4> }
+                { hasAtleastOne(ingredients) && 
                     <ul>
                         { ingredients.map((ingredient, idx) => {
                             return <li key={idx} className='p-ingredient'>{ ingredient }</li>
                         })}
                     </ul>
                 }
-                { hasAtLeastOneIntruction && <h4>Instructions</h4> }
-                { hasAtLeastOneIntruction && 
+                { hasAtleastOne(instructions) && <h4>Instructions</h4> }
+                { hasAtleastOne(instructions) && 
                     <div className={'e-instructions'}>
                         <ol>
                             { instructions.map((instruction, idx) => {
@@ -53,8 +49,11 @@ const reciperReader = (props) => {
                 
             </article>
 
-            { name.length && hasOneOrMoreIngredients ? 
-                <div className='whisk-button'>&nbsp;</div>
+            { name.length && hasAtleastOne(ingredients) ? 
+                <div className='whisk'>
+                    <p>Whisk buttons will appear below the recipe</p>
+                    <div className='buttons'>&nbsp;</div>
+                </div>
                 :
                 null
             }

@@ -67,21 +67,25 @@ h4 {
   white-space: pre-line;
 }
 
-.whisk-button {
+.whisk {
   margin-top: 40px;
+}
+
+.whisk p {
+  margin: 0;
+  padding: 0 0 10px 0;
+  color: #999999;
+  text-align: center;
+}
+
+.whisk .buttons {
   border: 2px dashed #cccccc;
   text-align: center;
-  padding: 30px 0;
+  height: 100px;
   border-radius: 4px;
   background: url('/images/whisk.png') center center no-repeat;
   background-size: cover;
   opacity: 0.5;
-}
-
-.whisk-button p {
-  margin: 0;
-  padding: 0;
-  color: #cccccc;
 }
 
 .form-actions,
