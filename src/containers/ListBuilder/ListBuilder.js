@@ -114,10 +114,12 @@ class ListBuilder extends Component {
                                 placeholder={'Whisk requires at least one ingredient '}
                                 content={ingredients}></textarea>
 
-                            <i className="material-icons">
-                                help_outline
+                            <div className={'help'}>
+                                <i className="material-icons">
+                                    help_outline
+                                </i>
                                 <span>This are instructions</span>
-                            </i>
+                            </div>
                         </fieldset>
                     </div>
 
@@ -129,7 +131,7 @@ class ListBuilder extends Component {
                                 className='form-control instructions'
                                 data-type={'list'}
                                 name={'instructions'}
-                                placeholder={'Instructions (optiona)'}
+                                placeholder={'Instructions (optional)'}
                                 content={instructions}></textarea>
                         </fieldset>
                     </div>
@@ -141,7 +143,7 @@ class ListBuilder extends Component {
                                 id={'additonal'}
                                 className='form-control'
                                 name={'additonal'}
-                                placeholder={'Additonal copy (optiona)'}
+                                placeholder={'Additonal copy (optional)'}
                                 onKeyDown={keyDownHandler}
                                 content={addtional}></textarea>
                         </fieldset>
