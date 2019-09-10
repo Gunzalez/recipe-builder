@@ -54,8 +54,6 @@ class ListBuilder extends Component {
             keynum = e.which;
         }
         if(keynum === 13){
-            // const idx = this.state.ingredients.findIndex(ing => ing.key.toString() === e.target.dataset.key);
-            // this.addIngredient(idx);
             e.preventDefault();   
         }   
     }
@@ -107,6 +105,7 @@ class ListBuilder extends Component {
                     <div className='form-group'>
                         <fieldset>
                             <label htmlFor="ingredients">Ingredients *</label>
+                            
                             <textarea
                                 id={'ingredients'}
                                 className='form-control ingredients'
@@ -114,6 +113,11 @@ class ListBuilder extends Component {
                                 name={'ingredients'}
                                 placeholder={'Whisk requires at least one ingredient '}
                                 content={ingredients}></textarea>
+
+                            <i className="material-icons">
+                                help_outline
+                                <span>This are instructions</span>
+                            </i>
                         </fieldset>
                     </div>
 
