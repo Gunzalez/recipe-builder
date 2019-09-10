@@ -9,16 +9,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
-.row {
-  border: 2px solid #cccccc;
-  margin: 10px 0;
-}
-
 form, .reader {
   max-width: 90%;
   width: 480px;
@@ -60,7 +50,6 @@ fieldset .help:focus span {
   display: block;
 }
 
-
 .form-group fieldset textarea {
   height: 90px;
   resize: none;
@@ -75,17 +64,6 @@ fieldset .help:focus span {
 h4 {
   margin-bottom: 20px;
 }
-
-
-.content-row {
-  text-align: right;
-  /* position: absolute;
-  right: 0;
-  top: -10px; */
-}
-
-
-
 
 .demo {
   display: flex;
