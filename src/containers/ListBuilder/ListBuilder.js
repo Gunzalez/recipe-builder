@@ -46,19 +46,19 @@ class ListBuilder extends Component {
         // }
     };
 
-    // keyDownHandler = (e) => {
-    //     let keynum;
-    //     if(window.event) { // IE                    
-    //         keynum = e.keyCode;
-    //     } else if(e.which){ // Netscape/Firefox/Opera                   
-    //         keynum = e.which;
-    //     }
-    //     if(keynum === 13){
-    //         const idx = this.state.ingredients.findIndex(ing => ing.key.toString() === e.target.dataset.key);
-    //         this.addIngredient(idx);
-    //         e.preventDefault();   
-    //     }   
-    // }
+    keyDownHandler = (e) => {
+        let keynum;
+        if(window.event) { // IE                    
+            keynum = e.keyCode;
+        } else if(e.which){ // Netscape/Firefox/Opera                   
+            keynum = e.which;
+        }
+        if(keynum === 13){
+            // const idx = this.state.ingredients.findIndex(ing => ing.key.toString() === e.target.dataset.key);
+            // this.addIngredient(idx);
+            e.preventDefault();   
+        }   
+    }
 
     render() {
 
@@ -72,7 +72,7 @@ class ListBuilder extends Component {
             shouldDisableSubmit,
             formSubmitHandler,
             formChangeHandler,
-            // keyDownHandler,
+            keyDownHandler,
             saveRecipe,
             deleteRecipe 
         } = this;
@@ -99,6 +99,7 @@ class ListBuilder extends Component {
                                 className='form-control'
                                 name={'introduction'}
                                 placeholder={'Introduction (optional)'}
+                                onKeyDown={keyDownHandler}
                                 content={introduction}></textarea>
                         </fieldset>
                     </div>
@@ -137,6 +138,7 @@ class ListBuilder extends Component {
                                 className='form-control'
                                 name={'additonal'}
                                 placeholder={'Additonal copy (optiona)'}
+                                onKeyDown={keyDownHandler}
                                 content={addtional}></textarea>
                         </fieldset>
                     </div>

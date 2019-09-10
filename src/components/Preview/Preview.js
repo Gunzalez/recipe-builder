@@ -1,16 +1,24 @@
 import React from 'react';
 
+function hasAtleastOne(array){
+    return array.reduce((combinedText, singleText)=> {
+        return combinedText + singleText
+    }, '').trim().length > 0;
+}
+
 const reciperReader = (props) => {
 
-    const { recipe: { name, introduction, ingredients, instructions, additonal }} = props;
+    const { recipe: { 
+        name, 
+        introduction, 
+        ingredients, 
+        instructions, 
+        additonal }
+    } = props;
 
-    const hasOneOrMoreIngredients = ingredients.reduce((combinedText, ingredient)=> {
-        return combinedText + ingredient
-    }, '').trim().length > 0;
+    const hasOneOrMoreIngredients = hasAtleastOne(ingredients);
 
-    const hasAtLeastOneIntruction = instructions.reduce((combinedText, instruction)=> {
-        return combinedText + instruction
-    }, '').trim().length > 0;
+    const hasAtLeastOneIntruction = hasAtleastOne(instructions);
     
     return (
         <div className={'reader'}>
@@ -33,20 +41,20 @@ const reciperReader = (props) => {
                 }
                 { hasAtLeastOneIntruction && <h4>Instructions</h4> }
                 { hasAtLeastOneIntruction && 
-                    <ol>
-                        { instructions.map((instruction, idx) => {
-                            return <li key={idx} className='o-instructions'>{ instruction }</li>
-                        })}
-                    </ol>
+                    <div className={'e-instructions'}>
+                        <ol>
+                            { instructions.map((instruction, idx) => {
+                                return <li key={idx} className='o-instructions'>{ instruction }</li>
+                            })}
+                        </ol>
+                    </div>
                 }
                 { additonal.length ? <div className='content'>{ additonal }</div> : null }
                 
             </article>
 
             { name.length && hasOneOrMoreIngredients ? 
-                <div className='whisk-button'>
-                    <p>The Whisk recipe buttons will appear here.</p>
-                </div>
+                <div className='whisk-button'>&nbsp;</div>
                 :
                 null
             }
