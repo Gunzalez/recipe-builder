@@ -62,14 +62,14 @@ fieldset .help:focus span {
 
 
 .form-group fieldset textarea {
-  height: 100px;
+  height: 90px;
   resize: none;
   transition: height 0.33s;
 }
 
 .instructions:focus,
 .ingredients:focus {
-  height: 240px;  
+  height: 180px;  
 }
 
 h4 {
@@ -92,8 +92,8 @@ h4 {
 }
 
 .content {
-  padding: 10px 0 15px 0;
-  white-space: pre-line;
+  padding: 0 0 25px 0;
+  /* white-space: pre-line; */
 }
 
 .whisk {

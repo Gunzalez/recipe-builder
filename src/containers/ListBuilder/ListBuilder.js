@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Preview from '../../components/Preview/Preview';
 
+import { hasAtleastOne } from '../../helpers';
+
 class ListBuilder extends Component {
 
     state = { 
@@ -13,9 +15,7 @@ class ListBuilder extends Component {
 
     shouldDisableSubmit = () => {
         const { ingredients, name } = this.state;
-        const hasOneOrMoreIngredients = ingredients.reduce((combinedText, ingredient)=> {
-            return combinedText + ingredient
-        }, '').trim().length > 0;
+        const hasOneOrMoreIngredients = hasAtleastOne(ingredients);
         return !hasOneOrMoreIngredients || !name.length
     }
 
@@ -85,7 +85,7 @@ class ListBuilder extends Component {
                         <input type='text'
                             className='form-control'
                             name='name' 
-                            placeholder='Whisk requires a mandatory title'
+                            placeholder='Recipe title is mandatory'
                             defaultValue={name} />
                     </div>
 
@@ -111,7 +111,7 @@ class ListBuilder extends Component {
                                 className='form-control ingredients'
                                 data-type={'list'}
                                 name={'ingredients'}
-                                placeholder={'Whisk requires at least one ingredient '}
+                                placeholder={'Recipe ingredients are mandatory'}
                                 content={ingredients}></textarea>
 
                             <div className={'help'}>

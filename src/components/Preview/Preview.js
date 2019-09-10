@@ -1,10 +1,6 @@
 import React from 'react';
 
-function hasAtleastOne(array){
-    return array.reduce((combinedText, singleText)=> {
-        return combinedText + singleText
-    }, '').trim().length > 0;
-}
+import { hasAtleastOne } from '../../helpers';
 
 const reciperReader = (props) => {
 
