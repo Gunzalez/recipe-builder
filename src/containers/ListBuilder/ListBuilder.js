@@ -1,101 +1,30 @@
 import React, { Component } from 'react';
-import Sortable from 'react-sortablejs';
-import arrayMove from 'array-move';
-
 import Preview from '../../components/Preview/Preview';
-import Item from '../../components/Item/Item';
-import Content from '../../components/Content/Content';
-
-function findWithAttr(array, attr, value) {
-    for(var i = 0; i < array.length; i += 1) {
-        if(array[i][attr] === value) {
-            return i;
-        }
-    }
-    return -1;
-}
 
 class ListBuilder extends Component {
 
     state = { 
         name: '',
-        topContent: '',
+        introduction: '',
         ingredients: [],
-        bottomContent: '',
-        idOfItemToRemove: ''
-    }
-
-    addIngredient = (idx) => {
-        const freshIngredient = { 
-            key: Date.now(), 
-            text: '' 
-        }
-        if(typeof(idx) === 'number' && idx > -1){
-            const ingredients = [...this.state.ingredients];
-            ingredients.splice(idx + 1, 0, freshIngredient);
-            this.setState({ ingredients });
-        } else {
-            this.setState({ ingredients: [ ...this.state.ingredients, freshIngredient ] });
-        }
+        instructions: [],
+        additonal: ''
     }
 
     shouldDisableSubmit = () => {
         const { ingredients, name } = this.state;
         const hasOneOrMoreIngredients = ingredients.reduce((combinedText, ingredient)=> {
-            return combinedText + ingredient.text
+            return combinedText + ingredient
         }, '').trim().length > 0;
-
         return !hasOneOrMoreIngredients || !name.length
     }
 
     formChangeHandler = (e) => {
-        const identifier = e.target.dataset.name;
-        switch(identifier){
-            case 'ingredient':
-
-                const arrayOfLines = e.target.value.split('\n').filter(singleLine => singleLine.trim().length > 0)
-                const ingredients = arrayOfLines.map((singleLine, i) => {
-                    return {
-                        key: Date.now() + i,
-                        text: singleLine
-                    }
-                })
-                const existingArray = [...this.state.ingredients];
-                const index = findWithAttr(existingArray, 'key', parseInt(e.target.dataset.key));
-                if(ingredients.length === 1){
-                    existingArray[index].text = e.target.value;
-                } else if(ingredients.length > 1){
-                    existingArray.splice(index, 1, ...ingredients);
-                }
-                this.setState({ ingredients: existingArray }); 
-                break;           
-            default:                
-                this.setState({ [identifier]: e.target.value });
-                break;
-        }
-    }
-
-    removeItemHandler = (key, itemType) => {
-        switch(itemType){
-            case 'ingredient':
-                {
-                    const ingredients = [...this.state.ingredients];
-                    const index = this.state.ingredients.findIndex(ingredient => ingredient.key === key);
-                    ingredients.splice(index, 1);
-                    this.setState({ ingredients });
-                    break;
-                }
-            case 'content':
-                {
-                    const additionalContent = [...this.state.additionalContent];
-                    const index = this.state.additionalContent.findIndex(content => content.key === key);
-                    additionalContent.splice(index, 1);
-                    this.setState({ additionalContent });
-                    break;
-                }
-            default:
-                console.log('Oops');
-                break;
+        if(e.target.dataset.type === 'list'){
+            const items = e.target.value.split('\n').filter(item => item.trim().length > 0);
+            this.setState({ [e.target.name]: items });
+        } else {
+            this.setState({ [e.target.name]: e.target.value });
         }
     }
 
@@ -112,143 +41,124 @@ class ListBuilder extends Component {
     }
 
     componentDidMount() {
-        if(!this.state.ingredients.length){
-            this.addIngredient();
-        }
+        // if(!this.state.ingredients.length){
+        //     this.addIngredient();
+        // }
     };
 
-    keyDownHandler = (e) => {
-        let keynum;
-        if(window.event) { // IE                    
-            keynum = e.keyCode;
-        } else if(e.which){ // Netscape/Firefox/Opera                   
-            keynum = e.which;
-        }
-        if(keynum === 13){
-            const idx = this.state.ingredients.findIndex(ing => ing.key.toString() === e.target.dataset.key);
-            this.addIngredient(idx);
-            e.preventDefault();   
-        }   
-    }
-
-    confirmRemoveHandler = (idOfItemToRemove) => {
-        this.setState({ idOfItemToRemove })
-    }
-
-    clearRemoveHandler = () => {
-        const idOfItemToRemove = '';
-        this.setState({ idOfItemToRemove })
-    }
-
-    itemsReorderHandler = (ingredients) => {
-        this.setState({ ingredients });
-    }
+    // keyDownHandler = (e) => {
+    //     let keynum;
+    //     if(window.event) { // IE                    
+    //         keynum = e.keyCode;
+    //     } else if(e.which){ // Netscape/Firefox/Opera                   
+    //         keynum = e.which;
+    //     }
+    //     if(keynum === 13){
+    //         const idx = this.state.ingredients.findIndex(ing => ing.key.toString() === e.target.dataset.key);
+    //         this.addIngredient(idx);
+    //         e.preventDefault();   
+    //     }   
+    // }
 
     render() {
 
         const { state: { 
                 name, 
-                topContent, 
+                introduction, 
                 ingredients,
-                bottomContent,
-                idOfItemToRemove
+                instructions,
+                addtional
             }, 
             shouldDisableSubmit,
-            confirmRemoveHandler,
             formSubmitHandler,
             formChangeHandler,
-            removeItemHandler,
-            clearRemoveHandler,
-            itemsReorderHandler,
-            keyDownHandler,
-            addIngredient,
+            // keyDownHandler,
             saveRecipe,
             deleteRecipe 
         } = this;
 
-        let ingredientsList = <p>A Whisk recipe needs at least one ingredient.</p>;
-        if(ingredients.length){
-            ingredientsList = ingredients.map(ingredient => {
-                const  { key, text } = ingredient;
-                return <Item
-                    key={key}
-                    dataKey={key}
-                    ingredient={text}
-                    inputKeyDowned={keyDownHandler}
-                    deleteState={key === idOfItemToRemove}
-                    clearRemove={ clearRemoveHandler }
-                    confirmRemove={() => confirmRemoveHandler(key) }
-                    removeIngredient={() => removeItemHandler(key,'ingredient')}
-                    />
-            })
-        }
-        
+                
         return (
             <div className={'demo'}>
                 <form onSubmit={formSubmitHandler} onChange={formChangeHandler}>
 
                     <div className='form-group'>
-
                         <label htmlFor='name'>Title *</label>
-
                         <input type='text'
                             className='form-control'
-                            data-name='name' 
-                            placeholder='A Whisk recipe must have a title'
+                            name='name' 
+                            placeholder='Whisk requires a mandatory title'
                             defaultValue={name} />
-                        </div>
+                    </div>
 
+                    <div className='form-group'>
                         <fieldset>
-                            <Content 
-                                position={'topContent'}
-                                helperText={'Introduction (optional)'}
-                                content={topContent}/>
+                            <label htmlFor="introduction">Introduction</label>
+                            <textarea
+                                id={'introduction'}
+                                className='form-control'
+                                name={'introduction'}
+                                placeholder={'Introduction (optional)'}
+                                content={introduction}></textarea>
                         </fieldset>
+                    </div>
 
-                        <p>Recipe ingredients *</p>
+                    <div className='form-group'>
                         <fieldset>
-                            <Sortable
-                                options={{
-                                    handle: ".drag-icon"
-                                }}
-                                onChange={(order, sortable, evt) => {
-                                    const listItems = [...this.state.ingredients]
-                                    arrayMove.mutate(listItems, evt.oldIndex, evt.newIndex);
-                                    itemsReorderHandler(listItems);
-                                }}>
-                                { ingredientsList }
-                            </Sortable>
-
-                            <div className='add-ingredients'>
-                                <button type='button' className='btn btn-default'
-                                    onClick={addIngredient}>
-                                        <i className="material-icons">add</i>
-                                        <span>Add ingredients</span>
-                                </button>
-                            </div>
-
+                            <label htmlFor="ingredients">Ingredients *</label>
+                            <textarea
+                                id={'ingredients'}
+                                className='form-control ingredients'
+                                data-type={'list'}
+                                name={'ingredients'}
+                                placeholder={'Whisk requires at least one ingredient '}
+                                content={ingredients}></textarea>
                         </fieldset>
+                    </div>
 
+                    <div className='form-group'>
                         <fieldset>
-                            <Content 
-                                position={'bottomContent'}
-                                helperText={'Additonal copy (optional)'} 
-                                content={bottomContent}  />
+                            <label htmlFor="instructions">Instructions</label>
+                            <textarea
+                                id={'instructions'}
+                                className='form-control instructions'
+                                data-type={'list'}
+                                name={'instructions'}
+                                placeholder={'Instructions (optiona)'}
+                                content={instructions}></textarea>
                         </fieldset>
+                    </div>
 
-                        <div className='form-actions'>
+                    <div className='form-group'>
+                        <fieldset>
+                            <label htmlFor="additonal">Additonal copy</label>
+                            <textarea
+                                id={'additonal'}
+                                className='form-control'
+                                name={'additonal'}
+                                placeholder={'Additonal copy (optiona)'}
+                                content={addtional}></textarea>
+                        </fieldset>
+                    </div>
+                        
 
-                            {/* <a href='#' className='delete-link'
-                                onClick={ deleteRecipe }>Delete recipe</a> */}
+                    <div className='form-actions'>
 
-                            <button type='submit' className={'btn btn-success'}
-                                onClick={ saveRecipe }
-                                disabled={ shouldDisableSubmit() }>Save recipe</button>
+                        {/* <a href='#' className='delete-link'
+                            onClick={ deleteRecipe }>Delete recipe</a> */}
 
-                        </div>
+                        <button type='submit' className={'btn btn-success'}
+                            onClick={ saveRecipe }
+                            disabled={ shouldDisableSubmit() }>Save recipe</button>
+
+                    </div>
+
+                    
 
                 </form>
+
                 <Preview recipe={this.state} />
+                
             </div>
         );
     }

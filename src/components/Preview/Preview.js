@@ -2,10 +2,14 @@ import React from 'react';
 
 const reciperReader = (props) => {
 
-    const { recipe: { name, ingredients, topContent, bottomContent }} = props;
+    const { recipe: { name, introduction, ingredients, instructions, additonal }} = props;
 
     const hasOneOrMoreIngredients = ingredients.reduce((combinedText, ingredient)=> {
-        return combinedText + ingredient.text
+        return combinedText + ingredient
+    }, '').trim().length > 0;
+
+    const hasAtLeastOneIntruction = instructions.reduce((combinedText, instruction)=> {
+        return combinedText + instruction
     }, '').trim().length > 0;
     
     return (
@@ -17,17 +21,26 @@ const reciperReader = (props) => {
             </div>
 
             <article className={'h-recipe'}>
-                { name.length ? <h4 className='p-name'>{ name }</h4> : null }
-                { topContent.length ? <div className='content'>{ topContent }</div> : null }
-                { hasOneOrMoreIngredients && <p><strong>INGREDIENTS</strong></p> }
+                { name.length ? <h3 className='p-name'>{ name }</h3> : null }
+                { introduction.length ? <div className='content'>{ introduction }</div> : null }
+                { hasOneOrMoreIngredients && <h4>Ingredients</h4> }
                 { hasOneOrMoreIngredients && 
-                        <ul>
-                            { ingredients.map((ingredient, idx) => {
-                                return ingredient.text.trim().length ? <li key={idx} className='p-ingredient'>{ingredient.text}</li> : null
-                            })}
-                        </ul>
-                    }
-                { bottomContent.length ? <div className='content'>{ bottomContent }</div> : null }
+                    <ul>
+                        { ingredients.map((ingredient, idx) => {
+                            return <li key={idx} className='p-ingredient'>{ ingredient }</li>
+                        })}
+                    </ul>
+                }
+                { hasAtLeastOneIntruction && <h4>Instructions</h4> }
+                { hasAtLeastOneIntruction && 
+                    <ol>
+                        { instructions.map((instruction, idx) => {
+                            return <li key={idx} className='o-instructions'>{ instruction }</li>
+                        })}
+                    </ol>
+                }
+                { additonal.length ? <div className='content'>{ additonal }</div> : null }
+                
             </article>
 
             { name.length && hasOneOrMoreIngredients ? 
