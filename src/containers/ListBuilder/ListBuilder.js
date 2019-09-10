@@ -201,7 +201,7 @@ class ListBuilder extends Component {
                         <fieldset>
                             <Content 
                                 position={'topContent'}
-                                helperText={'Introduction copy (optional)'}
+                                helperText={'Introduction (optional)'}
                                 content={topContent}/>
                         </fieldset>
 
