@@ -96,7 +96,7 @@ class ListBuilder extends Component {
                             className='form-control'
                             name='name'
                             ref={this.recipeTitle} 
-                            placeholder='Recipe title is mandatory'
+                            placeholder='A title is mandatory'
                             defaultValue={name} />
                     </div>
 
@@ -108,7 +108,7 @@ class ListBuilder extends Component {
                                 ref={this.recipeIntroduction}
                                 className='form-control'
                                 name={'introduction'}
-                                placeholder={'Introduction (optional)'}
+                                // placeholder={'Introduction (optional)'}
                                 onKeyDown={keyDownHandler}
                                 defaultValue={introduction}></textarea>
                         </fieldset>
@@ -124,7 +124,7 @@ class ListBuilder extends Component {
                                 className='form-control ingredients'
                                 data-type={'list'}
                                 name={'ingredients'}
-                                placeholder={'Recipe ingredients are mandatory'}
+                                placeholder={'Ingredients are mandatory'}
                                 defaultValue={ingredients}></textarea>
 
                             <div className={'help'}>
@@ -158,7 +158,7 @@ class ListBuilder extends Component {
                                 ref={this.recipeAdditonal}
                                 className='form-control'
                                 name={'additonal'}
-                                placeholder={'Additonal copy (optional)'}
+                                // placeholder={'Additonal copy (optional)'}
                                 onKeyDown={keyDownHandler}
                                 defaultValue={additonal}></textarea>
                         </fieldset>
