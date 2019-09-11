@@ -45,17 +45,14 @@ class ListBuilder extends Component {
         console.log(this.state);
     }
 
-    deleteRecipe = () => {
-
-    }
-
     componentDidMount() {
         const recipe = fakeRecipe();
-        this.recipeTitle.current.value = recipe.name
-        this.recipeIntroduction.current.value = recipe.introduction
-        this.recipeIngredients.current.value = recipe.ingredients.join('\n')
-        this.recipeInstructions.current.value = recipe.instructions.join('\n')
-        this.recipeAdditonal.current.value = recipe.additonal
+        this.recipeTitle.current.value = recipe.name;
+        this.recipeIntroduction.current.value = recipe.introduction;
+        this.recipeIngredients.current.value = recipe.ingredients.join('\n');
+        this.recipeInstructions.current.value = recipe.instructions.join('\n');
+        this.recipeAdditonal.current.value = recipe.additonal;
+        //this.recipeIngredients.tigger.onChange();
         this.setState({ ...recipe })
     };
 
